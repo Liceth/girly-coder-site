@@ -14,6 +14,14 @@ interface SakuraLeaf {
   color: string;
 }
 
+// Move colors outside component to prevent recreation
+const SAKURA_COLORS = [
+  "rgba(255, 182, 193, 0.8)", // Light pink
+  "rgba(255, 192, 203, 0.8)", // Pink
+  "rgba(255, 20, 147, 0.6)",  // Deep pink
+  "rgba(255, 105, 180, 0.7)", // Hot pink
+];
+
 export default function SakuraLeaves() {
   const [leaves, setLeaves] = useState<SakuraLeaf[]>([]);
   const { scrollY } = useScroll();
@@ -29,13 +37,6 @@ export default function SakuraLeaves() {
   const scrollYProgress = useTransform(scrollY, [0, 1000], [0, -30]);
   const cursorX = useTransform(smoothMouseX, [-1, 1], [-20, 20]);
 
-  const sakuraColors = [
-    "rgba(255, 182, 193, 0.8)", // Light pink
-    "rgba(255, 192, 203, 0.8)", // Pink
-    "rgba(255, 20, 147, 0.6)",  // Deep pink
-    "rgba(255, 105, 180, 0.7)", // Hot pink
-  ];
-
   useEffect(() => {
     const generateLeaves = () => {
       const newLeaves: SakuraLeaf[] = [];
@@ -48,14 +49,14 @@ export default function SakuraLeaves() {
           rotation: Math.random() * 360,
           delay: Math.random() * 3,
           duration: Math.random() * 4 + 3,
-          color: sakuraColors[Math.floor(Math.random() * sakuraColors.length)],
+          color: SAKURA_COLORS[Math.floor(Math.random() * SAKURA_COLORS.length)],
         });
       }
       setLeaves(newLeaves);
     };
 
     generateLeaves();
-  }, [sakuraColors]);
+  }, []); // Empty dependency array - only run once
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
