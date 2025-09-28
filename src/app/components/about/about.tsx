@@ -7,7 +7,7 @@ import KawaiiCard from "../KawaiiCard";
 
 export function About() {
   return (
-    <section id="about" className="py-20 px-6 bg-gradient-to-br from-pink-50 to-rose-50">
+    <section id="about" className="py-5 px-6 bg-gradient-to-br from-pink-50 to-rose-50">
       <div className="max-w-6xl mx-auto">
         {/* Título principal */}
         <AnimatedText 
@@ -30,22 +30,25 @@ export function About() {
                   🎓 My journey
                 </h3>
                 <p className="text-lg font-poppins text-rose-900 leading-relaxed">
-                  I&apos;m Liceth, a frontend developer with a degree in Computer Science and over 6 years of experience. I specialize in building intuitive, accessible UIs using React and TypeScript.
+                  I&apos;m Liceth, a Frontend Developer with a Computer Science degree and 6+ years of experience. 
+                  I specialize in React, TypeScript, and building scalable, accessible platforms that empower users.
                 </p>
               </KawaiiCard>
             </AnimatedSection>
 
             {/* Lo que amo */}
             <AnimatedSection delay={0.4}>
-              <KawaiiCard variant="glass" className="text-left">
-                <h3 className="text-2xl font-playfair font-semibold mb-3 text-pink-700">
-                  🌸 What I love
-                </h3>
-                <p className="text-lg font-poppins text-rose-900 leading-relaxed">
-                  I&apos;m passionate about design systems, pixel-perfect interfaces, and creating magical experiences that delight users — always with attention to detail and accessibility.
-                </p>
-              </KawaiiCard>
-            </AnimatedSection>
+            <KawaiiCard variant="glass" className="text-left">
+              <h3 className="text-2xl font-playfair font-semibold mb-3 text-pink-700">
+                🌸 What I love
+              </h3>
+              <p className="text-lg font-poppins text-rose-900 leading-relaxed">
+                I&apos;m passionate about design systems, pixel-perfect interfaces, and creating magical 
+                digital experiences. My focus is on detail, inclusivity, and building products that truly 
+                connect with people.
+              </p>
+            </KawaiiCard>
+          </AnimatedSection>
 
             {/* Fuera del código */}
             <AnimatedSection delay={0.5}>
@@ -54,7 +57,9 @@ export function About() {
                   🎀 Outside of code
                 </h3>
                 <p className="text-lg font-poppins text-rose-900 leading-relaxed">
-                  I&apos;m a big fan of kawaii aesthetics, anime, and spending time with my husky 🐾. I love journaling, learning languages, and collaborating with creative minds 💡.
+                  When I&apos;m not coding, you&apos;ll find me enjoying kawaii aesthetics, anime, and walks 
+                  with my husky 🐾. I also love journaling, exploring new languages, and collaborating with 
+                  creative minds 💡— always curious and learning.
                 </p>
               </KawaiiCard>
             </AnimatedSection>

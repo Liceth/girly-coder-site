@@ -21,8 +21,8 @@ export function Hero() {
   ];
 
   return (
-    <section id="hero" className="flex flex-col justify-center items-center text-center px-6 py-20 min-h-screen relative overflow-hidden">
-      {/* Fondo con gradiente y partículas */}
+    <section id="hero" className="flex flex-col justify-center items-center text-center px-6 py-5 min-h-screen relative overflow-hidden">
+      {/* Gradient background and particles */}
       <div className="absolute inset-0 gradient-primary particles opacity-80" />
       
       <div className="relative z-10">
@@ -65,7 +65,7 @@ export function Hero() {
           </div>
         </AnimatedSection>
         
-        {/* Elementos decorativos */}
+        {/* Decorative elements */}
         <div className="absolute top-10 left-10 text-2xl animate-float opacity-60">
           🌸
         </div>

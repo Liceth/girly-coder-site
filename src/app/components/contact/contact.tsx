@@ -3,9 +3,10 @@
 import AnimatedText from "../AnimatedText";
 import AnimatedButton from "../AnimatedButton";
 
+// TODO: add contact formc using zustand
 export function Contact() {
   return (
-    <section id="contact" className="py-20 px-6 text-center">
+    <section id="contact" className="py-5 px-6 text-center">
       <AnimatedText 
         type="fade" 
         delay={0.2}

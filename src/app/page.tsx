@@ -23,13 +23,13 @@ export default function Home() {
         zIndex: 0,
       }}
     >
-      {/* Navegación suave */}
+      {/* Smooth navigation */}
       <SmoothNav />
       
-      {/* Hojas flotantes con parallax */}
+      {/* Floating leaves with parallax */}
       <FloatingLeaves />
       
-      {/* Pétalos de sakura realistas */}
+      {/* Realistic sakura petals */}
       <SakuraLeaves />
       
       <AnimatedSection delay={0.1}>
@@ -57,7 +57,7 @@ export default function Home() {
       <motion.img
         src="/chibi-coder-kawaii.png"
         alt="Kawaii Coder Girl"
-        className="absolute bottom-4 right-4 w-40 h-auto drop-shadow-lg rounded-full border-2 border-rose-300 z-20"
+        className="absolute bottom-4 left-4 w-[50px] h-auto drop-shadow-lg rounded-full border-2 border-rose-300 z-20"
         initial={{ opacity: 0, scale: 0.8, y: 50 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ 

@@ -82,7 +82,23 @@ export default function SmoothNav() {
           onClick={scrollToTop}
           className="rounded-full w-12 h-12 p-0 flex items-center justify-center"
         >
-          ⬆️
+          {/* TODO: add arrow up icon component */}
+          <span aria-label="Scroll to top" role="img">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width={24}
+              height={24}
+              fill="none"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M12 4l-7 8h4v8h6v-8h4l-7-8z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
         </AnimatedButton>
       </motion.div>
     </>
