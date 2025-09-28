@@ -11,7 +11,7 @@ export function Work() {
       company: "Kinesso",
       position: "UI Engineer",
       location: "Bogotá",
-      period: "Jul 2024 – Present",
+      period: "Jul 2024 - Present",
       icon: "🚀",
       achievements: [
         "Designing and deploying AI-driven trend detection tools for enterprise users using React, TypeScript, Next.js, Tailwind, and Cypress",
@@ -24,7 +24,7 @@ export function Work() {
       company: "Huge Inc (Google Projects)",
       position: "UI Engineer",
       location: "Bogotá",
-      period: "Apr 2021 – Jul 2024",
+      period: "Apr 2021 - Jul 2024",
       icon: "🌟",
       achievements: [
         "Built and maintained scalable CMS and analytics tools for Google",
@@ -38,7 +38,7 @@ export function Work() {
       company: "Globant",
       position: "Web UI Developer",
       location: "Bogotá",
-      period: "Apr 2019 – Mar 2021",
+      period: "Apr 2019 -  Mar 2021",
       icon: "💼",
       achievements: [
         "Developed and optimized user interfaces with React, JavaScript, HTML, and CSS",
@@ -51,7 +51,7 @@ export function Work() {
       company: "Stefanini",
       position: "Frontend Developer",
       location: "Barranquilla",
-      period: "Oct 2018 – Dec 2018",
+      period: "Oct 2018 - Dec 2018",
       icon: "⚡",
       achievements: [
         "Created a responsive admin dashboard with React and Redux",
@@ -63,7 +63,7 @@ export function Work() {
       company: "CrowdSwap",
       position: "Frontend Developer",
       location: "Bogotá",
-      period: "Jul 2018 – Oct 2018",
+      period: "Jul 2018 - Oct 2018",
       icon: "📱",
       achievements: [
         "Developed MVP mobile app using React Native and GraphQL",
@@ -75,7 +75,7 @@ export function Work() {
       company: "Nativapps",
       position: "Frontend Developer",
       location: "Barranquilla",
-      period: "May 2017 – Jul 2018",
+      period: "May 2017 - Jul 2018",
       icon: "🛠️",
       achievements: [
         "Maintained and enhanced a full-stack CRM application using PHP, JS, and AWS",
@@ -85,7 +85,7 @@ export function Work() {
     }
   ];
   return (
-    <section id="work" className="py-20 px-6 max-w-7xl mx-auto">
+    <section id="work" className="py-5 px-6 max-w-7xl mx-auto">
     {/* todo: add projects/blog section */}
      
       {/* Work Experience */}
@@ -111,14 +111,14 @@ export function Work() {
         animate="animate"
         className="space-y-6"
       >
-        {/* Define experience data locally since it was missing */}
+        {/* Define experience data*/}
         {experience.map((job, index) => (
           <motion.div
             key={`${job.company}-${job.period}`}
             variants={fadeInUp}
             className="relative"
           >
-            {/* Línea de tiempo */}
+            {/* Timeline */}
             {index < experience.length - 1 && (
               <div className="absolute left-8 top-16 w-0.5 h-20 bg-gradient-to-b from-pink-300 to-purple-300 z-0" />
             )}

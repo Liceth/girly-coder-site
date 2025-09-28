@@ -11,7 +11,7 @@ export const projects = [
       tech: ["React", "TypeScript", "Node.js"]
     },
     {
-      title: "Visualizador de reportes", 
+      title: "Visualizador de datos ", 
       description: "Sistema modular con WebSocket y Dagster para monitorear procesos en tiempo real.",
       icon: "📈",
       tech: ["Next.js", "WebSocket", "Dagster"]
