@@ -10,6 +10,7 @@ interface AnimatedButtonProps {
   variant?: "primary" | "secondary" | "outline";
   size?: "sm" | "md" | "lg";
   disabled?: boolean;
+  type?: "button" | "submit" | "reset";
 }
 
 const AnimatedButton = ({
@@ -19,6 +20,7 @@ const AnimatedButton = ({
   variant = "primary",
   size = "md",
   disabled = false,
+  type = "button",
 }: AnimatedButtonProps) => {
   const baseClasses = "inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2";
   
@@ -38,6 +40,7 @@ const AnimatedButton = ({
 
   return (
     <motion.button
+      type={type}
       className={buttonClasses}
       onClick={onClick}
       disabled={disabled}

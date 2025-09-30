@@ -29,32 +29,6 @@
    - Add your domain
    - Update DNS records as instructed
 
-### Option 2: Netlify
-**Good alternative with generous free tier**
-
-1. **Connect Repository:**
-   - Visit [netlify.com](https://netlify.com)
-   - Sign up/login with GitHub
-   - Click "New site from Git"
-
-2. **Build Settings:**
-   - Build command: `npm run build`
-   - Publish directory: `.next`
-
-3. **Deploy and add domain**
-
-### Option 3: Railway
-**Simple deployment with good performance**
-
-1. **Connect Repository:**
-   - Visit [railway.app](https://railway.app)
-   - Sign up/login with GitHub
-   - Create new project from GitHub repo
-
-2. **Auto-deploy:**
-   - Railway auto-detects Next.js
-   - Deploys automatically
-
 ## 🔧 Pre-deployment Checklist
 
 - [x] ✅ Next.js config optimized for production
@@ -75,17 +49,6 @@ Value: 76.76.19.36
 Type: CNAME
 Name: www
 Value: cname.vercel-dns.com
-```
-
-**For Netlify:**
-```
-Type: A
-Name: @
-Value: 75.2.60.5
-
-Type: CNAME
-Name: www
-Value: your-site.netlify.app
 ```
 
 ## 🛠️ Local Testing
@@ -147,13 +110,3 @@ Your project is already optimized with:
 - Images are already optimized
 - Consider lazy loading for heavy components
 - Monitor Core Web Vitals
-
-## 📞 Support
-
-- **Vercel:** Excellent Next.js support
-- **Netlify:** Good documentation and community
-- **Railway:** Simple but effective
-
----
-
-**Recommended: Start with Vercel for the best Next.js experience!** 🎉 
