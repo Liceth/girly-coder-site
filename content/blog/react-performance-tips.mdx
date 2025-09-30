@@ -1,0 +1,342 @@
+---
+title: "React Performance Tips: From Good to Great"
+excerpt: "Practical techniques to optimize React applications for better user experience and Core Web Vitals"
+date: "2024-01-10"
+tags: ["React", "Performance", "Optimization", "Web Vitals"]
+author: "Liceth Ovalles"
+featured: false
+readingTime: "6 min read"
+---
+
+# React Performance Tips: From Good to Great
+
+Performance optimization in React isn't just about making your app faster—it's about creating a better user experience that keeps visitors engaged and improves your Core Web Vitals scores.
+
+## The Performance Mindset
+
+Before diving into specific techniques, it's important to understand that performance optimization is a mindset. Every decision you make—from component structure to state management—impacts your app's performance.
+
+## 1. Memoization: React.memo, useMemo, and useCallback
+
+### React.memo for Component Memoization
+
+```tsx
+// ❌ Re-renders on every parent update
+const ExpensiveComponent = ({ data, onUpdate }) => {
+  const processedData = expensiveCalculation(data);
+  return <div>{processedData}</div>;
+};
+
+// ✅ Only re-renders when props change
+const ExpensiveComponent = React.memo(({ data, onUpdate }) => {
+  const processedData = expensiveCalculation(data);
+  return <div>{processedData}</div>;
+});
+```
+
+### useMemo for Expensive Calculations
+
+```tsx
+const DataVisualization = ({ rawData }) => {
+  // ❌ Recalculates on every render
+  const chartData = processLargeDataset(rawData);
+  
+  // ✅ Only recalculates when rawData changes
+  const chartData = useMemo(() => 
+    processLargeDataset(rawData), 
+    [rawData]
+  );
+  
+  return <Chart data={chartData} />;
+};
+```
+
+### useCallback for Function Stability
+
+```tsx
+const TodoList = ({ todos }) => {
+  // ❌ Creates new function on every render
+  const handleDelete = (id) => {
+    deleteTodo(id);
+  };
+  
+  // ✅ Stable function reference
+  const handleDelete = useCallback((id) => {
+    deleteTodo(id);
+  }, []);
+  
+  return (
+    <div>
+      {todos.map(todo => (
+        <TodoItem 
+          key={todo.id} 
+          todo={todo} 
+          onDelete={handleDelete} 
+        />
+      ))}
+    </div>
+  );
+};
+```
+
+## 2. Code Splitting and Lazy Loading
+
+### Route-Based Code Splitting
+
+```tsx
+import { lazy, Suspense } from 'react';
+
+// Lazy load heavy components
+const Dashboard = lazy(() => import('./Dashboard'));
+const Analytics = lazy(() => import('./Analytics'));
+
+const App = () => (
+  <Router>
+    <Suspense fallback={<LoadingSpinner />}>
+      <Routes>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/analytics" element={<Analytics />} />
+      </Routes>
+    </Suspense>
+  </Router>
+);
+```
+
+### Component-Level Lazy Loading
+
+```tsx
+const HeavyChart = lazy(() => import('./HeavyChart'));
+
+const DataView = ({ showChart }) => (
+  <div>
+    {showChart && (
+      <Suspense fallback={<ChartSkeleton />}>
+        <HeavyChart />
+      </Suspense>
+    )}
+  </div>
+);
+```
+
+## 3. Virtual Scrolling for Large Lists
+
+```tsx
+import { FixedSizeList as List } from 'react-window';
+
+const VirtualizedList = ({ items }) => (
+  <List
+    height={600}
+    itemCount={items.length}
+    itemSize={80}
+    itemData={items}
+  >
+    {({ index, style, data }) => (
+      <div style={style}>
+        <ListItem item={data[index]} />
+      </div>
+    )}
+  </List>
+);
+```
+
+## 4. Image Optimization
+
+### Next.js Image Component
+
+```tsx
+import Image from 'next/image';
+
+const OptimizedImage = ({ src, alt, priority = false }) => (
+  <Image
+    src={src}
+    alt={alt}
+    width={800}
+    height={600}
+    priority={priority}
+    placeholder="blur"
+    blurDataURL="data:image/jpeg;base64,..."
+    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+  />
+);
+```
+
+### Lazy Loading with Intersection Observer
+
+```tsx
+const LazyImage = ({ src, alt }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const imgRef = useRef();
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (imgRef.current) {
+      observer.observe(imgRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={imgRef}>
+      {isInView && (
+        <img
+          src={src}
+          alt={alt}
+          onLoad={() => setIsLoaded(true)}
+          style={{ opacity: isLoaded ? 1 : 0 }}
+        />
+      )}
+    </div>
+  );
+};
+```
+
+## 5. State Management Optimization
+
+### Context Optimization
+
+```tsx
+// ❌ Single context for everything
+const AppContext = createContext();
+
+// ✅ Split contexts by concern
+const UserContext = createContext();
+const ThemeContext = createContext();
+const NotificationContext = createContext();
+
+// ✅ Memoized context values
+const UserProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  
+  const value = useMemo(() => ({
+    user,
+    setUser,
+    isAuthenticated: !!user
+  }), [user]);
+  
+  return (
+    <UserContext.Provider value={value}>
+      {children}
+    </UserContext.Provider>
+  );
+};
+```
+
+## 6. Bundle Analysis and Optimization
+
+### Webpack Bundle Analyzer
+
+```bash
+npm install --save-dev webpack-bundle-analyzer
+```
+
+```json
+// package.json
+{
+  "scripts": {
+    "analyze": "ANALYZE=true npm run build"
+  }
+}
+```
+
+### Dynamic Imports for Heavy Libraries
+
+```tsx
+// ❌ Importing entire library
+import * as d3 from 'd3';
+
+// ✅ Dynamic import when needed
+const loadD3 = async () => {
+  const d3 = await import('d3');
+  return d3;
+};
+
+const Chart = () => {
+  const [d3, setD3] = useState(null);
+  
+  useEffect(() => {
+    loadD3().then(setD3);
+  }, []);
+  
+  if (!d3) return <LoadingSpinner />;
+  
+  return <D3Chart d3={d3} />;
+};
+```
+
+## 7. Performance Monitoring
+
+### React DevTools Profiler
+
+```tsx
+import { Profiler } from 'react';
+
+const onRenderCallback = (id, phase, actualDuration) => {
+  console.log('Render:', { id, phase, actualDuration });
+};
+
+<Profiler id="App" onRender={onRenderCallback}>
+  <App />
+</Profiler>
+```
+
+### Core Web Vitals Monitoring
+
+```tsx
+import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
+
+getCLS(console.log);
+getFID(console.log);
+getFCP(console.log);
+getLCP(console.log);
+getTTFB(console.log);
+```
+
+## Measuring Success
+
+### Key Metrics to Track
+
+1. **First Contentful Paint (FCP)**: < 1.8s
+2. **Largest Contentful Paint (LCP)**: < 2.5s
+3. **First Input Delay (FID)**: < 100ms
+4. **Cumulative Layout Shift (CLS)**: < 0.1
+5. **Time to Interactive (TTI)**: < 3.8s
+
+### Tools for Measurement
+
+- **Lighthouse**: Comprehensive performance audit
+- **WebPageTest**: Detailed waterfall analysis
+- **React DevTools**: Component-level profiling
+- **Bundle Analyzer**: Bundle size optimization
+
+## The Performance Checklist
+
+Before deploying, ensure you've:
+
+- [ ] Memoized expensive calculations
+- [ ] Implemented code splitting
+- [ ] Optimized images and assets
+- [ ] Minimized bundle size
+- [ ] Added performance monitoring
+- [ ] Tested on slow networks
+- [ ] Verified Core Web Vitals scores
+
+## Conclusion
+
+Performance optimization is an ongoing process, not a one-time task. By implementing these techniques and continuously monitoring your app's performance, you'll create applications that not only work well but provide an exceptional user experience.
+
+Remember: **Fast is a feature.** Users expect applications to be responsive and smooth. By prioritizing performance, you're prioritizing user experience.
+
+---
+
+*What performance techniques have made the biggest impact on your React applications? Share your experiences in the comments!* 🚀

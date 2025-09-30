@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { staggerContainer, fadeInUp } from "../../utils/animations";
 import AnimatedText from "../AnimatedText";
 import KawaiiCard from "../KawaiiCard";
+import { Blogs } from "./blogs";
 
 export function Work() {
   const experience = [
@@ -86,7 +87,8 @@ export function Work() {
   ];
   return (
     <section id="work" className="py-5 px-6 max-w-7xl mx-auto">
-    {/* todo: add projects/blog section */}
+      {/* Blog Section */}
+      <Blogs />
      
       {/* Work Experience */}
       <AnimatedText 
