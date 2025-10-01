@@ -10,6 +10,7 @@ import AnimatedSection from "./components/AnimatedSection";
 import FloatingLeaves from "./components/FloatingLeaves";
 import SakuraLeaves from "./components/SakuraLeaves";
 import SmoothNav from "./components/SmoothNav";
+import { Blogs } from "./components/work/blogs";
 
 export default function Home() {
   return (
@@ -40,6 +41,10 @@ export default function Home() {
         <About />
       </AnimatedSection>
 
+      <AnimatedSection delay={0.2}>
+        <Blogs />
+      </AnimatedSection>
+
       <AnimatedSection delay={0.3}>
         <Work />
       </AnimatedSection>
@@ -52,7 +57,7 @@ export default function Home() {
         <Contact />
       </AnimatedSection>
 
-      <div className="pointer-events-none absolute bottom-0 left-0 w-full h-32 bg-[url('/sakura-petals.svg')] bg-repeat-x opacity-20 animate-float-reverse" />
+      <div className="pointer-events-none absolute bottom-0 left-0 w-full h-32 bg-[url('/sakura-petals.svg.png')] bg-repeat-x opacity-20 animate-float-reverse" />
 
       <motion.img
         src="/chibi-coder-kawaii.png"

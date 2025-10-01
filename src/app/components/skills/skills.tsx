@@ -144,7 +144,7 @@ export function Skills() {
         animate="animate"
         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
       >
-        {skillCategories.map((category, categoryIndex) => (
+        {skillCategories.map((category) => (
           <motion.div
             key={category.category}
             variants={fadeInUp}
@@ -160,7 +160,7 @@ export function Skills() {
             
             {/* Skills Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {category.skills.map((skill, skillIndex) => (
+              {category.skills.map((skill) => (
                 <motion.div
                   key={skill.name}
                   variants={fadeInUp}

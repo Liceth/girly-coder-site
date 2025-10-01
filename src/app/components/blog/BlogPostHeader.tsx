@@ -3,21 +3,13 @@
 import { motion } from "framer-motion";
 import { BlogPostMeta } from "../../hooks/useBlogData";
 
-// Format date for display
-function formatDate(dateString: string): string {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-}
+import { formatDate } from '@/app/utils/dateUtils';
 
 interface BlogPostHeaderProps {
   post: BlogPostMeta;
 }
 
-export function BlogPostHeader({ post }: BlogPostHeaderProps) {
+export function BlogPostHeader({ post }: Readonly<BlogPostHeaderProps>) {
   return (
     <motion.header
       initial={{ opacity: 0, y: 20 }}

@@ -4,15 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { BlogPostMeta } from "../../hooks/useBlogData";
 
-// Format date for display
-function formatDate(dateString: string): string {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-}
+import { formatDate } from '@/app/utils/dateUtils';
 
 interface BlogCardProps {
   post: BlogPostMeta;
@@ -20,7 +12,7 @@ interface BlogCardProps {
   className?: string;
 }
 
-export function BlogCard({ post, variant = 'default', className = '' }: BlogCardProps) {
+export function BlogCard({ post, variant = 'default', className = '' }: Readonly<BlogCardProps>) {
   const cardVariants = {
     default: "bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-kawaii hover:shadow-kawaii-hover",
     featured: "bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-8 shadow-kawaii hover:shadow-kawaii-hover border border-pink-200",
@@ -69,7 +61,7 @@ export function BlogCard({ post, variant = 'default', className = '' }: BlogCard
 
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-4">
-          {post.tags.slice(0, variant === 'compact' ? 2 : 3).map((tag) => (
+          {post.tags.slice(0, variant === 'compact' ? 2 : 3).map((tag: string | number) => (
             <span
               key={tag}
               className="text-xs font-poppins text-pink-500 bg-pink-50 px-2 py-1 rounded-full border border-pink-200"
@@ -110,7 +102,6 @@ export function BlogCard({ post, variant = 'default', className = '' }: BlogCard
             transition={{ duration: 0.2 }}
           >
             Read more
-            <span>→</span>
           </motion.span>
         </div>
       </Link>

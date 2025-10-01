@@ -8,7 +8,7 @@ interface RelatedPostsProps {
   posts: BlogPostMeta[];
 }
 
-export function RelatedPosts({ posts }: RelatedPostsProps) {
+export function RelatedPosts({ posts }: Readonly<RelatedPostsProps>) {
   if (posts.length === 0) return null;
 
   return (
@@ -75,7 +75,7 @@ export function RelatedPosts({ posts }: RelatedPostsProps) {
                   <span>⏱️</span>
                   {post.readingTime}
                 </span>
-                <span className="text-pink-500">Read more →</span>
+                <span className="text-pink-500">Read more </span>
               </div>
             </Link>
           </motion.article>

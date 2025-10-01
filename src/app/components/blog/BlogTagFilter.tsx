@@ -10,7 +10,7 @@ interface BlogTagFilterProps {
   className?: string;
 }
 
-export function BlogTagFilter({ posts, onFilteredPosts, className = '' }: BlogTagFilterProps) {
+export function BlogTagFilter({ posts, onFilteredPosts, className = '' }: Readonly<BlogTagFilterProps>) {
   const [selectedTag, setSelectedTag] = useState<string>('all');
 
   // Get all unique tags from posts

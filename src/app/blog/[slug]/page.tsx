@@ -1,14 +1,15 @@
 import { notFound } from 'next/navigation';
 
 import {  BlogPostMeta } from '../../hooks/useBlogData';
-import { BlogPostContent } from '@/app/components/blog/BlogPostContent';
+import { ServerMDXContent } from '@/app/components/blog/ServerMDXContent';
+import { AnimatedBlogContent } from '@/app/components/blog/AnimatedBlogContent';
 import { BlogPostHeader } from '@/app/components/blog/BlogPostHeader';
 import { RelatedPosts } from '@/app/components/blog/RelatedPosts';
 
 interface BlogPostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -28,7 +29,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: BlogPostPageProps) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/blog?action=single&slug=${params.slug}`, {
+    const { slug } = await params;
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/blog?action=single&slug=${slug}`, {
       cache: 'force-cache'
     });
     
@@ -68,7 +70,8 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/blog?action=single&slug=${params.slug}`, {
+    const { slug } = await params;
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/blog?action=single&slug=${slug}`, {
       cache: 'force-cache'
     });
     
@@ -84,7 +87,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     }
 
     // Fetch related posts
-    const relatedResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/blog?action=related&slug=${params.slug}`, {
+    const relatedResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/blog?action=related&slug=${slug}`, {
       cache: 'force-cache'
     });
     const relatedData = await relatedResponse.json();
@@ -97,7 +100,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <BlogPostHeader post={post} />
           
           {/* Blog Post Content */}
-          <BlogPostContent content={post.content} />
+          <AnimatedBlogContent>
+            <ServerMDXContent content={post.content} />
+          </AnimatedBlogContent>
           
           {/* Related Posts */}
           {relatedPosts.length > 0 && (

@@ -1,0 +1,34 @@
+{
+  "name": "Liceth Ovalles - Developer Portfolio",
+  "short_name": "Liceth Ovalles",
+  "description": "A beautiful portfolio showcasing web development skills, projects, and blog posts with a cute pink theme.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fdf2f8",
+  "theme_color": "#ec4899",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/chibi-coder-kawaii.png",
+      "sizes": "1024x1536",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/KawaiiCoder.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["portfolio", "developer", "web", "blog"],
+  "lang": "en",
+  "dir": "ltr",
+  "scope": "/",
+  "prefer_related_applications": false
+}

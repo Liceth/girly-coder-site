@@ -22,7 +22,7 @@ export function Blogs() {
 
   if (isLoading) {
     return (
-      <section id="blogs" className="py-5 px-6 max-w-7xl mx-auto">
+      <section id="blog" className="py-5 px-6 max-w-7xl mx-auto">
         <AnimatedText 
           type="fade" 
           delay={0.2}
@@ -45,23 +45,16 @@ export function Blogs() {
   }
 
   return (
-    <section id="blogs" className="py-5 px-6 max-w-7xl mx-auto">
+    <section id="blog" className="py-5 px-6 max-w-7xl mx-auto">
       {/* Header */}
       <AnimatedText 
         type="fade" 
         delay={0.2}
         className="text-4xl font-playfair font-semibold text-center mb-4"
       >
-        <span className="gradient-text">Blog & Articles</span> 📝
+        <span className="gradient-text">Blog</span> 
       </AnimatedText>
-      
-      <AnimatedText 
-        type="slide" 
-        delay={0.4}
-        className="text-lg font-poppins text-rose-700 text-center mb-12 max-w-3xl mx-auto"
-      >
-        Thoughts on frontend development, design, and the magic of creating delightful user experiences
-      </AnimatedText>
+   
 
       {/* Featured Posts */}
       {featuredPosts.length > 0 && (
@@ -71,9 +64,7 @@ export function Blogs() {
           transition={{ delay: 0.6 }}
           className="mb-12"
         >
-          <h3 className="text-2xl font-playfair font-semibold text-pink-700 mb-6 text-center">
-            ⭐ Featured Articles
-          </h3>
+       
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {featuredPosts.slice(0, 2).map((post, index) => (
               <motion.div
@@ -144,22 +135,6 @@ export function Blogs() {
         transition={{ delay: 1.6 }}
         className="mt-16 text-center"
       >
-        <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl p-8 border border-pink-100">
-          <h3 className="text-2xl font-playfair font-semibold text-pink-700 mb-4">
-            Want to stay updated? 📧
-          </h3>
-          <p className="text-rose-600 font-poppins mb-6 max-w-2xl mx-auto">
-            Subscribe to get notified when I publish new articles about frontend development, 
-            design patterns, and the latest web technologies.
-          </p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-3 rounded-lg font-poppins font-medium shadow-lg hover:shadow-xl transition-all duration-300"
-          >
-            Subscribe to Newsletter ✨
-          </motion.button>
-        </div>
       </motion.div>
     </section>
   );

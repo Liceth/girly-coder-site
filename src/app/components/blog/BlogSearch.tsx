@@ -10,7 +10,7 @@ interface BlogSearchProps {
   className?: string;
 }
 
-export function BlogSearch({ posts, onSearchResults, className = '' }: BlogSearchProps) {
+export function BlogSearch({ posts, onSearchResults, className = '' }: Readonly<BlogSearchProps>) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
 

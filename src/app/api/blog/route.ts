@@ -134,7 +134,7 @@ function getRelatedPosts(currentSlug: string, limit: number = 3): BlogPostMeta[]
     .sort((a, b) => b.commonTagsCount - a.commonTagsCount)
     .slice(0, limit);
 
-  return relatedPosts.map(({ commonTagsCount, ...post }) => post);
+  return relatedPosts.map(({  ...post }) => post);
 }
 
 // Search posts by title and content
@@ -149,23 +149,6 @@ function searchPosts(query: string): BlogPostMeta[] {
   );
 }
 
-// Format date for display
-export function formatDate(dateString: string): string {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-}
-
-// Generate reading time estimate
-export function estimateReadingTime(content: string): string {
-  const wordsPerMinute = 200;
-  const words = content.split(/\s+/).length;
-  const minutes = Math.ceil(words / wordsPerMinute);
-  return `${minutes} min read`;
-}
 
 // API Routes
 export async function GET(request: Request) {
