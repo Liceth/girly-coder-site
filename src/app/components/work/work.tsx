@@ -86,8 +86,6 @@ export function Work() {
   ];
   return (
     <section id="work" className="py-5 px-6 max-w-7xl mx-auto">
-    {/* todo: add projects/blog section */}
-     
       {/* Work Experience */}
       <AnimatedText 
         type="fade" 

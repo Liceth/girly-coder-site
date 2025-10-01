@@ -30,6 +30,7 @@ export default function SmoothNav() {
   const navItems = [
     { label: "Home", id: "hero" },
     { label: "About me", id: "about" },
+    { label: "Blog", id: "blog" },
     { label: "Work", id: "work" },
     { label: "Skills", id: "skills" },
     { label: "Contact", id: "contact" },
