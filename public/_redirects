@@ -1,0 +1,5 @@
+# Redirect content directory access to 404
+/content/* /404 404
+
+# Handle SPA routing
+/* /index.html 200
