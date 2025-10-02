@@ -1,5 +1,4 @@
 "use client";
-import { motion } from "framer-motion";
 import React from "react";
 import { About } from "./components/about/about";
 import { Contact } from "./components/contact/contact";
@@ -10,6 +9,8 @@ import AnimatedSection from "./components/AnimatedSection";
 import FloatingLeaves from "./components/FloatingLeaves";
 import SakuraLeaves from "./components/SakuraLeaves";
 import SmoothNav from "./components/SmoothNav";
+import ScrollToTop from "./components/ScrollToTop";
+import { HamburgerMenu } from "./components/HamburgerMenu";
 import { Blogs } from "./components/work/blogs";
 
 export default function Home() {
@@ -27,6 +28,12 @@ export default function Home() {
       {/* Smooth navigation */}
       <SmoothNav />
       
+      {/* Mobile hamburger menu */}
+      <HamburgerMenu />
+      
+      {/* Scroll to top button - visible on all screen sizes */}
+      <ScrollToTop />
+      
       {/* Floating leaves with parallax */}
       <FloatingLeaves />
       
@@ -34,50 +41,42 @@ export default function Home() {
       <SakuraLeaves />
       
       <AnimatedSection delay={0.1}>
-        <Hero />
+        <div id="hero">
+          <Hero />
+        </div>
       </AnimatedSection>
 
       <AnimatedSection delay={0.2}>
-        <About />
+        <div id="about">
+          <About />
+        </div>
       </AnimatedSection>
 
       <AnimatedSection delay={0.2}>
-        <Blogs />
+        <div id="blogs">
+          <Blogs />
+        </div>
       </AnimatedSection>
 
       <AnimatedSection delay={0.3}>
-        <Work />
+        <div id="work">
+          <Work />
+        </div>
       </AnimatedSection>
 
       <AnimatedSection delay={0.4}>
-        <Skills />
+        <div id="skills">
+          <Skills />
+        </div>
       </AnimatedSection>
 
       <AnimatedSection delay={0.5}>
-        <Contact />
+        <div id="contact">
+          <Contact />
+        </div>
       </AnimatedSection>
 
       <div className="pointer-events-none absolute bottom-0 left-0 w-full h-32 bg-[url('/sakura-petals.svg.png')] bg-repeat-x opacity-20 animate-float-reverse" />
-
-      <motion.img
-        src="/chibi-coder-kawaii.png"
-        alt="Kawaii Coder Girl"
-        className="absolute bottom-4 left-4 w-[50px] h-auto drop-shadow-lg rounded-full border-2 border-rose-300 z-20"
-        initial={{ opacity: 0, scale: 0.8, y: 50 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ 
-          duration: 1.2, 
-          delay: 1.0,
-          type: "spring",
-          stiffness: 100,
-          damping: 15
-        }}
-        whileHover={{ 
-          scale: 1.1,
-          rotate: 5,
-          transition: { duration: 0.3 }
-        }}
-      />
     </main>
   );
 }

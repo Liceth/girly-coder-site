@@ -137,25 +137,11 @@ function getRelatedPosts(currentSlug: string, limit: number = 3): BlogPostMeta[]
   return relatedPosts.map(({  ...post }) => post);
 }
 
-// Search posts by title and content
-function searchPosts(query: string): BlogPostMeta[] {
-  const allPosts = getAllPosts();
-  const lowercaseQuery = query.toLowerCase();
-
-  return allPosts.filter((post) => 
-    post.title.toLowerCase().includes(lowercaseQuery) ||
-    post.excerpt.toLowerCase().includes(lowercaseQuery) ||
-    post.tags.some((tag) => tag.toLowerCase().includes(lowercaseQuery))
-  );
-}
-
 
 // API Routes
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const action = searchParams.get('action');
-  const tag = searchParams.get('tag');
-  const query = searchParams.get('query');
   const slug = searchParams.get('slug');
 
   try {
@@ -165,18 +151,7 @@ export async function GET(request: Request) {
       
       case 'featured':
         return NextResponse.json({ posts: getFeaturedPosts() });
-      
-      case 'by-tag':
-        if (!tag) {
-          return NextResponse.json({ error: 'Tag parameter required' }, { status: 400 });
-        }
-        return NextResponse.json({ posts: getPostsByTag(tag) });
-      
-      case 'search':
-        if (!query) {
-          return NextResponse.json({ error: 'Query parameter required' }, { status: 400 });
-        }
-        return NextResponse.json({ posts: searchPosts(query) });
+    
       
       case 'single':
         if (!slug) {

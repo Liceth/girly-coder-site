@@ -80,17 +80,6 @@ export function Blogs() {
         </motion.div>
       )}
 
-      {/* Search and Filter */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.0 }}
-        className="mb-8 space-y-6"
-      >
-        {/* TODO: add search and filter */}
-        
-      </motion.div>
-
       {/* All Posts Grid */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -122,9 +111,6 @@ export function Blogs() {
           <h3 className="text-xl font-playfair font-semibold text-pink-700 mb-2">
             No articles found
           </h3>
-          <p className="text-rose-600 font-poppins">
-            Try adjusting your search or filter criteria
-          </p>
         </motion.div>
       )}
 
