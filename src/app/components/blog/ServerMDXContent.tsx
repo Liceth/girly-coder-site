@@ -1,13 +1,14 @@
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 interface ServerMDXContentProps {
   content: string;
 }
 
-// Custom components for MDX (Server Component - no animations)
+// Custom components for MDX
 const components = {
-  h1: ({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+  h1: ({ children, ...props }: any) => (
     <h1
       className="text-3xl font-playfair font-bold text-pink-700 mt-12 mb-6"
       {...props}
@@ -15,7 +16,7 @@ const components = {
       {children}
     </h1>
   ),
-  h2: ({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+  h2: ({ children, ...props }: any) => (
     <h2
       className="text-2xl font-playfair font-semibold text-pink-700 mt-10 mb-4"
       {...props}
@@ -23,7 +24,7 @@ const components = {
       {children}
     </h2>
   ),
-  h3: ({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+  h3: ({ children, ...props }: any) => (
     <h3
       className="text-xl font-playfair font-semibold text-pink-700 mt-8 mb-3"
       {...props}
@@ -31,7 +32,7 @@ const components = {
       {children}
     </h3>
   ),
-  p: ({ children, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
+  p: ({ children, ...props }: any) => (
     <p
       className="text-rose-800 font-poppins leading-relaxed mb-6"
       {...props}
@@ -39,7 +40,7 @@ const components = {
       {children}
     </p>
   ),
-  ul: ({ children, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
+  ul: ({ children, ...props }: any) => (
     <ul
       className="list-disc list-inside text-rose-800 font-poppins mb-6 space-y-2"
       {...props}
@@ -47,7 +48,7 @@ const components = {
       {children}
     </ul>
   ),
-  ol: ({ children, ...props }: React.HTMLAttributes<HTMLOListElement>) => (
+  ol: ({ children, ...props }: any) => (
     <ol
       className="list-decimal list-inside text-rose-800 font-poppins mb-6 space-y-2"
       {...props}
@@ -55,12 +56,12 @@ const components = {
       {children}
     </ol>
   ),
-  li: ({ children, ...props }: React.HTMLAttributes<HTMLLIElement>) => (
+  li: ({ children, ...props }: any) => (
     <li className="leading-relaxed" {...props}>
       {children}
     </li>
   ),
-  blockquote: ({ children, ...props }: React.HTMLAttributes<HTMLQuoteElement>) => (
+  blockquote: ({ children, ...props }: any) => (
     <blockquote
       className="border-l-4 border-pink-300 pl-6 py-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-r-lg my-8 italic text-rose-700 font-poppins"
       {...props}
@@ -68,7 +69,7 @@ const components = {
       {children}
     </blockquote>
   ),
-  code: ({ children, className, ...props }: React.HTMLAttributes<HTMLElement> & { className?: string }) => {
+  code: ({ children, className, ...props }: any) => {
     const match = /language-(\w+)/.exec(className || '');
     const language = match ? match[1] : '';
     
@@ -76,9 +77,11 @@ const components = {
       return (
         <div className="my-8">
           <SyntaxHighlighter
+            style={tomorrow}
             language={language}
             PreTag="div"
             className="rounded-lg shadow-lg"
+            {...props}
           >
             {String(children).replace(/\n$/, '')}
           </SyntaxHighlighter>
@@ -95,7 +98,7 @@ const components = {
       </code>
     );
   },
-  pre: ({ children, ...props }: React.HTMLAttributes<HTMLPreElement>) => (
+  pre: ({ children, ...props }: any) => (
     <pre
       className="bg-gray-900 text-gray-100 p-6 rounded-lg shadow-lg overflow-x-auto my-8"
       {...props}
@@ -103,7 +106,7 @@ const components = {
       {children}
     </pre>
   ),
-  a: ({ children, href, ...props }: React.HTMLAttributes<HTMLAnchorElement> & { href?: string }) => (
+  a: ({ children, href, ...props }: any) => (
     <a
       href={href}
       className="text-pink-600 hover:text-pink-700 underline decoration-pink-300 hover:decoration-pink-500 transition-colors duration-200"
@@ -114,30 +117,30 @@ const components = {
       {children}
     </a>
   ),
-  strong: ({ children, ...props }: React.HTMLAttributes<HTMLElement>) => (
+  strong: ({ children, ...props }: any) => (
     <strong className="font-semibold text-pink-700" {...props}>
       {children}
     </strong>
   ),
-  em: ({ children, ...props }: React.HTMLAttributes<HTMLElement>) => (
+  em: ({ children, ...props }: any) => (
     <em className="italic text-rose-600" {...props}>
       {children}
     </em>
   ),
-  hr: ({ ...props }: React.HTMLAttributes<HTMLHRElement>) => (
+  hr: ({ ...props }: any) => (
     <hr
       className="border-pink-200 my-12"
       {...props}
     />
   ),
-  table: ({ children, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
+  table: ({ children, ...props }: any) => (
     <div className="overflow-x-auto my-8">
       <table className="min-w-full border-collapse border border-pink-200 rounded-lg" {...props}>
         {children}
       </table>
     </div>
   ),
-  th: ({ children, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
+  th: ({ children, ...props }: any) => (
     <th
       className="border border-pink-200 bg-pink-50 px-4 py-2 text-left font-poppins font-semibold text-pink-700"
       {...props}
@@ -145,7 +148,7 @@ const components = {
       {children}
     </th>
   ),
-  td: ({ children, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
+  td: ({ children, ...props }: any) => (
     <td
       className="border border-pink-200 px-4 py-2 text-rose-800 font-poppins"
       {...props}
@@ -155,10 +158,12 @@ const components = {
   ),
 };
 
-export function ServerMDXContent({ content }: Readonly<ServerMDXContentProps>) {
+export function ServerMDXContent({ content }: ServerMDXContentProps) {
   return (
     <div className="prose prose-lg max-w-none">
-      <MDXRemote source={content} components={components} />
+      <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-kawaii border border-pink-100">
+        <MDXRemote source={content} components={components} />
+      </div>
     </div>
   );
 }
