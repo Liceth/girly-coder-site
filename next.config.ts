@@ -29,6 +29,43 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        source: '/src/content/:path*',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex, nofollow',
+          },
+          {
+            key: 'Cache-Control',
+            value: 'no-cache, no-store, must-revalidate',
+          },
+        ],
+      },
+    ];
+  },
+  // Redirects to prevent direct access to content files
+  async redirects() {
+    return [
+      {
+        source: '/content/:path*',
+        destination: '/404',
+        permanent: false,
+      },
+      {
+        source: '/src/content/:path*',
+        destination: '/404',
+        permanent: false,
+      },
+    ];
+  },
+  // Rewrites to handle API routes properly
+  async rewrites() {
+    return [
+      {
+        source: '/api/blog/:path*',
+        destination: '/api/blog/:path*',
+      },
     ];
   },
 };
