@@ -37,11 +37,12 @@ export function useBlogData() {
         ]);
 
         if (!allResponse.ok || !featuredResponse.ok) {
-          throw new Error('Failed to fetch blog data');
+          throw new Error(`Failed to fetch blog data: ${allResponse.status}, ${featuredResponse.status}`);
         }
 
         const allData = await allResponse.json();
         const featuredData = await featuredResponse.json();
+        
 
         setAllPosts(allData.posts || []);
         setFeaturedPosts(featuredData.posts || []);

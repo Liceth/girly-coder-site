@@ -10,7 +10,7 @@ import { useBlogData,  BlogPostMeta } from "../../hooks/useBlogData";
 export function Blogs() {
   const [displayedPosts, setDisplayedPosts] = useState<BlogPostMeta[]>([]);
   
-  const { allPosts, featuredPosts, isLoading } = useBlogData();
+  const { allPosts, featuredPosts, isLoading, error } = useBlogData();
 
   // Update displayed posts when data changes
   useEffect(() => {
@@ -19,6 +19,25 @@ export function Blogs() {
     }
   }, [allPosts, displayedPosts.length]);
 
+
+  if (error) {
+    return (
+      <section id="blog" className="py-5 px-6 max-w-7xl mx-auto">
+        <AnimatedText 
+          type="fade" 
+          delay={0.2}
+          className="text-4xl font-playfair font-semibold text-center mb-4"
+        >
+          <span className="gradient-text">Blog</span> 📝
+        </AnimatedText>
+        
+        <div className="flex flex-col justify-center items-center py-20">
+          <div className="text-4xl mb-4">😔</div>
+          <p className="text-rose-600 text-center">Error loading blog posts: {error}</p>
+        </div>
+      </section>
+    );
+  }
 
   if (isLoading) {
     return (
