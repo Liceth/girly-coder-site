@@ -37,11 +37,12 @@ export function useBlogData() {
         ]);
 
         if (!allResponse.ok || !featuredResponse.ok) {
-          throw new Error('Failed to fetch blog data');
+          throw new Error(`Failed to fetch blog data: ${allResponse.status}, ${featuredResponse.status}`);
         }
 
         const allData = await allResponse.json();
         const featuredData = await featuredResponse.json();
+        
 
         setAllPosts(allData.posts || []);
         setFeaturedPosts(featuredData.posts || []);
@@ -116,77 +117,3 @@ export function useBlogPost(slug: string) {
   };
 }
 
-// Hook for searching blog posts
-export function useBlogSearch() {
-  const [searchResults, setSearchResults] = useState<BlogPostMeta[]>([]);
-  const [isSearching, setIsSearching] = useState(false);
-
-  const searchPosts = async (query: string) => {
-    if (!query.trim()) {
-      setSearchResults([]);
-      return;
-    }
-
-    try {
-      setIsSearching(true);
-      const response = await fetch(`/api/blog?action=search&query=${encodeURIComponent(query)}`);
-      
-      if (!response.ok) {
-        throw new Error('Search failed');
-      }
-
-      const data = await response.json();
-      setSearchResults(data.posts || []);
-    } catch (err) {
-      console.error('Search error:', err);
-      setSearchResults([]);
-    } finally {
-      setIsSearching(false);
-    }
-  };
-
-  return {
-    searchResults,
-    isSearching,
-    searchPosts
-  };
-}
-
-// Hook for filtering posts by tag
-export function useBlogFilter() {
-  const [filteredPosts, setFilteredPosts] = useState<BlogPostMeta[]>([]);
-  const [isFiltering, setIsFiltering] = useState(false);
-
-  const filterByTag = async (tag: string) => {
-    try {
-      setIsFiltering(true);
-      
-      if (tag === 'all') {
-        // Fetch all posts
-        const response = await fetch('/api/blog?action=all');
-        if (response.ok) {
-          const data = await response.json();
-          setFilteredPosts(data.posts || []);
-        }
-      } else {
-        // Fetch posts by tag
-        const response = await fetch(`/api/blog?action=by-tag&tag=${encodeURIComponent(tag)}`);
-        if (response.ok) {
-          const data = await response.json();
-          setFilteredPosts(data.posts || []);
-        }
-      }
-    } catch (err) {
-      console.error('Filter error:', err);
-      setFilteredPosts([]);
-    } finally {
-      setIsFiltering(false);
-    }
-  };
-
-  return {
-    filteredPosts,
-    isFiltering,
-    filterByTag
-  };
-}

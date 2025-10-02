@@ -10,40 +10,63 @@ export function Work() {
     {
       company: "Kinesso",
       position: "UI Engineer",
-      location: "Bogotá",
+      location: "Bogotá / Remote",
       period: "Jul 2024 - Present",
       icon: "🚀",
       achievements: [
-        "Designing and deploying AI-driven trend detection tools for enterprise users using React, TypeScript, Next.js, Tailwind, and Cypress",
-        "Led frontend feature releases with server-side rendering (SSR) and API integration, reducing report generation time by 40%",
-        "Collaborated in agile ceremonies and improved unit test coverage by 30%"
+        "Architecting and deploying AI-powered trend detection SaaS platform with React, Next.js, and TypeScript",
+        "Implemented server-side rendering (SSR) and dynamic API integrations, reducing report generation time ",
+        "Built proof-of-concept data visualization dashboards with AG Grid and statistical computation pipelines",
+        "Improved unit and integration test coverage by 80% with Jest and Cypress, ensuring release confidence",
+        "Collaborated with cross-functional teams (designers, backend, and data engineers) to deliver scalable product features"
       ],
-      tech: ["React", "TypeScript", "Next.js", "Tailwind CSS", "Cypress", "SSR"]
+      tech: [
+        "React",
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Cypress",
+        "Jest",
+        "AG Grid",
+        "SSR",
+        "WebSockets",
+        "Dagster"
+      ]
     },
     {
       company: "Huge Inc (Google Projects)",
       position: "UI Engineer",
-      location: "Bogotá",
+      location: "Bogotá / Remote",
       period: "Apr 2021 - Jul 2024",
       icon: "🌟",
       achievements: [
-        "Built and maintained scalable CMS and analytics tools for Google",
-        "Integrated third-party APIs, developed reusable web components, and worked with localization tools",
-        "Delivered WCAG-compliant interfaces and tracked performance metrics with GA4",
-        "Conducted peer reviews and mentored junior team members"
+        "Developed and maintained scalable CMS and analytics platforms for Google marketing teams",
+        "Created reusable web components and integrated third-party APIs to accelerate feature delivery",
+        "Delivered WCAG-compliant, internationalized interfaces across multiple markets and languages",
+        "Monitored performance with GA4 and optimized UX for large-scale user traffic",
+        "Reviewed code and mentored junior engineers, fostering best practices in accessibility and testing"
       ],
-      tech: ["React", "CMS", "APIs", "WCAG", "GA4", "Localization"]
+      tech: [
+        "React",
+        "TypeScript",
+        "CMS",
+        "APIs",
+        "WCAG",
+        "GA4",
+        "Localization",
+        "Jest"
+      ]
     },
     {
       company: "Globant",
       position: "Web UI Developer",
       location: "Bogotá",
-      period: "Apr 2019 -  Mar 2021",
+      period: "Apr 2019 - Mar 2021",
       icon: "💼",
       achievements: [
-        "Developed and optimized user interfaces with React, JavaScript, HTML, and CSS",
-        "Collaborated with backend teams to implement RESTful endpoints",
-        "Improved app performance and cross-browser compatibility"
+        "Implemented modern user interfaces with React and JavaScript for enterprise clients",
+        "Collaborated with backend teams to consume RESTful APIs and ensure seamless integrations",
+        "Optimized app performance, accessibility, and cross-browser compatibility"
       ],
       tech: ["React", "JavaScript", "HTML", "CSS", "REST APIs"]
     },
@@ -54,8 +77,8 @@ export function Work() {
       period: "Oct 2018 - Dec 2018",
       icon: "⚡",
       achievements: [
-        "Created a responsive admin dashboard with React and Redux",
-        "Integrated APIs and enhanced UX through dynamic state management"
+        "Developed a responsive admin dashboard using React and Redux",
+        "Integrated APIs and implemented dynamic state management to enhance UX"
       ],
       tech: ["React", "Redux", "Admin Dashboard", "APIs"]
     },
@@ -66,10 +89,10 @@ export function Work() {
       period: "Jul 2018 - Oct 2018",
       icon: "📱",
       achievements: [
-        "Developed MVP mobile app using React Native and GraphQL",
-        "Implemented native modules in Swift for hybrid app functionality"
+        "Built MVP mobile app using React Native and GraphQL for real-time trading features",
+        "Implemented Swift native modules for hybrid mobile functionality"
       ],
-      tech: ["React Native", "GraphQL", "Swift", "Mobile App"]
+      tech: ["React Native", "GraphQL", "Swift", "Mobile Apps"]
     },
     {
       company: "Nativapps",
@@ -78,12 +101,13 @@ export function Work() {
       period: "May 2017 - Jul 2018",
       icon: "🛠️",
       achievements: [
-        "Maintained and enhanced a full-stack CRM application using PHP, JS, and AWS",
-        "Fixed bugs, enhanced workflows, and contributed to cloud deployments"
+        "Maintained and enhanced a full-stack CRM application with PHP, JavaScript, and AWS",
+        "Improved workflows, fixed bugs, and contributed to cloud deployments"
       ],
       tech: ["PHP", "JavaScript", "AWS", "CRM", "Full-stack"]
     }
   ];
+  
   return (
     <section id="work" className="py-5 px-6 max-w-7xl mx-auto">
       {/* Work Experience */}
@@ -125,7 +149,7 @@ export function Work() {
               variant="default"
               className="relative z-10"
             >
-              <div className="flex items-start gap-6">
+              <div className="flex items-start gap-6 sm:flex-row flex-col">
                 {/* Icono de la empresa */}
                 <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-pink-100 to-purple-100 rounded-full flex items-center justify-center text-2xl shadow-kawaii">
                   {job.icon}
