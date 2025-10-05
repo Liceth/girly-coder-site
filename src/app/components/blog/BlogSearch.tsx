@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BlogPostMeta } from "../../hooks/useBlogData";
+import { sanitizeSearchQuery } from '../../utils/security';
 
 interface BlogSearchProps {
   posts: BlogPostMeta[];
@@ -28,7 +29,9 @@ export function BlogSearch({ posts, onSearchResults, className = '' }: Readonly<
   }, [searchQuery, posts]);
 
   const handleSearch = (query: string) => {
-    setSearchQuery(query);
+    // SECURITY: Sanitize search query
+    const sanitizedQuery = sanitizeSearchQuery(query);
+    setSearchQuery(sanitizedQuery);
     setIsSearching(true);
     
     // Simulate search delay for better UX

@@ -4,6 +4,7 @@ import { ServerMDXContent } from '@/app/components/blog/ServerMDXContent';
 import { AnimatedBlogContent } from '@/app/components/blog/AnimatedBlogContent';
 import { BlogPostHeader } from '@/app/components/blog/BlogPostHeader';
 import { RelatedPosts } from '@/app/components/blog/RelatedPosts';
+import { sanitizeSlug } from '@/app/utils/security';
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -38,12 +39,25 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   try {
     const { slug } = await params;
     
+    // SECURITY: Sanitize slug to prevent path traversal
+    const sanitizedSlug = sanitizeSlug(slug);
+    
+    if (!sanitizedSlug) {
+      return { title: 'Post Not Found' };
+    }
+    
     // Read post directly from file system during build
     const fs = await import('fs');
     const path = await import('path');
     const matter = await import('gray-matter');
     
-    const fullPath = path.join(process.cwd(), 'src/content/blog', `${slug}.mdx`);
+    const fullPath = path.join(process.cwd(), 'src/content/blog', `${sanitizedSlug}.mdx`);
+    
+    // Check if file exists and is within allowed directory
+    if (!fs.existsSync(fullPath)) {
+      return { title: 'Post Not Found' };
+    }
+    
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data } = matter.default(fileContents);
 
@@ -76,12 +90,25 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   try {
     const { slug } = await params;
     
+    // SECURITY: Sanitize slug to prevent path traversal
+    const sanitizedSlug = sanitizeSlug(slug);
+    
+    if (!sanitizedSlug) {
+      notFound();
+    }
+    
     // Read post directly from file system during build
     const fs = await import('fs');
     const path = await import('path');
     const matter = await import('gray-matter');
     
-    const fullPath = path.join(process.cwd(), 'src/content/blog', `${slug}.mdx`);
+    const fullPath = path.join(process.cwd(), 'src/content/blog', `${sanitizedSlug}.mdx`);
+    
+    // Check if file exists
+    if (!fs.existsSync(fullPath)) {
+      notFound();
+    }
+    
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter.default(fileContents);
     
@@ -105,7 +132,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     const postsDirectory = path.join(process.cwd(), 'src/content/blog');
     const fileNames = fs.readdirSync(postsDirectory);
     const allPosts = fileNames
-      .filter((name) => name.endsWith('.mdx') && name !== `${slug}.mdx`)
+      .filter((name) => name.endsWith('.mdx') && name !== `${sanitizedSlug}.mdx`)
       .map((fileName) => {
         const postSlug = fileName.replace(/\.mdx$/, '');
         const postPath = path.join(postsDirectory, fileName);

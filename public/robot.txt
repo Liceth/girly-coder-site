@@ -1,0 +1,13 @@
+# Security directives
+User-agent: *
+Disallow: /api/
+Disallow: /.next/
+Disallow: /src/
+Disallow: /_next/static/
+
+# Allow public pages
+Allow: /
+Allow: /blog/
+
+# Sitemap 
+Sitemap: https://licethovalles.com/sitemap.xml
