@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { sanitizeSlug, checkRateLimit } from '../../utils/security';
 
 const postsDirectory = path.join(process.cwd(), 'src/content/blog');
 
@@ -140,6 +141,25 @@ function getRelatedPosts(currentSlug: string, limit: number = 3): BlogPostMeta[]
 
 // API Routes
 export async function GET(request: Request) {
+  // SECURITY: Rate limiting
+  const ip = request.headers.get('x-forwarded-for') || 
+             request.headers.get('x-real-ip') || 
+             'unknown';
+  const rateLimit = checkRateLimit(ip, 100, 15 * 60 * 1000);
+  
+  if (!rateLimit.allowed) {
+    return NextResponse.json(
+      { error: 'Too many requests. Please try again later.' },
+      { 
+        status: 429,
+        headers: {
+          'Retry-After': '900', // 15 minutes
+          'X-RateLimit-Remaining': '0',
+        }
+      }
+    );
+  }
+
   const { searchParams } = new URL(request.url);
   const action = searchParams.get('action');
   const slug = searchParams.get('slug');
@@ -147,36 +167,71 @@ export async function GET(request: Request) {
   try {
     switch (action) {
       case 'all':
-        return NextResponse.json({ posts: getAllPosts() });
+        return NextResponse.json(
+          { posts: getAllPosts() },
+          { headers: { 'X-RateLimit-Remaining': rateLimit.remaining.toString() } }
+        );
       
       case 'featured':
-        return NextResponse.json({ posts: getFeaturedPosts() });
-    
+        return NextResponse.json(
+          { posts: getFeaturedPosts() },
+          { headers: { 'X-RateLimit-Remaining': rateLimit.remaining.toString() } }
+        );
       
       case 'single':
         if (!slug) {
           return NextResponse.json({ error: 'Slug parameter required' }, { status: 400 });
         }
-        const post = getPostBySlug(slug);
+        
+        // SECURITY: Sanitize slug
+        const sanitizedSlug = sanitizeSlug(slug);
+        if (!sanitizedSlug) {
+          return NextResponse.json({ error: 'Invalid slug' }, { status: 400 });
+        }
+        
+        const post = getPostBySlug(sanitizedSlug);
         if (!post) {
           return NextResponse.json({ error: 'Post not found' }, { status: 404 });
         }
-        return NextResponse.json({ post });
+        return NextResponse.json(
+          { post },
+          { headers: { 'X-RateLimit-Remaining': rateLimit.remaining.toString() } }
+        );
       
       case 'related':
         if (!slug) {
           return NextResponse.json({ error: 'Slug parameter required' }, { status: 400 });
         }
-        return NextResponse.json({ posts: getRelatedPosts(slug) });
+        
+        // SECURITY: Sanitize slug
+        const sanitizedRelatedSlug = sanitizeSlug(slug);
+        if (!sanitizedRelatedSlug) {
+          return NextResponse.json({ error: 'Invalid slug' }, { status: 400 });
+        }
+        
+        return NextResponse.json(
+          { posts: getRelatedPosts(sanitizedRelatedSlug) },
+          { headers: { 'X-RateLimit-Remaining': rateLimit.remaining.toString() } }
+        );
       
       case 'tags':
-        return NextResponse.json({ tags: getAllTags() });
+        return NextResponse.json(
+          { tags: getAllTags() },
+          { headers: { 'X-RateLimit-Remaining': rateLimit.remaining.toString() } }
+        );
       
       default:
-        return NextResponse.json({ posts: getAllPosts() });
+        return NextResponse.json(
+          { posts: getAllPosts() },
+          { headers: { 'X-RateLimit-Remaining': rateLimit.remaining.toString() } }
+        );
     }
   } catch (error) {
+    // SECURITY: Don't expose error details in production
     console.error('API Error:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }
