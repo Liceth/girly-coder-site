@@ -22,75 +22,75 @@ export function Blogs() {
 
   if (error) {
     return (
-      <section id="blog" className="py-5 px-6 max-w-7xl mx-auto">
-        <AnimatedText 
-          type="fade" 
-          delay={0.2}
-          className="text-4xl font-playfair font-semibold text-center mb-4"
-        >
-          <span className="gradient-text">Blog</span> 📝
-        </AnimatedText>
-        
-        <div className="flex flex-col justify-center items-center py-20">
-          <div className="text-4xl mb-4">😔</div>
-          <p className="text-rose-600 text-center">Error loading blog posts: {error}</p>
-        </div>
+      <section id="blog" className="py-28 px-6 max-w-5xl mx-auto">
+        <p className="text-xs tracking-[0.22em] uppercase text-[#c8869a] mb-3 font-poppins">Writing</p>
+        <h2 className="text-4xl font-playfair font-semibold text-[#2d2420] mb-12">Blog</h2>
+        <p className="font-poppins text-sm text-[#5c4a42]">Could not load posts: {error}</p>
       </section>
     );
   }
 
   if (isLoading) {
     return (
-      <section id="blog" className="py-5 px-6 max-w-7xl mx-auto">
-        <AnimatedText 
-          type="fade" 
-          delay={0.2}
-          className="text-4xl font-playfair font-semibold text-center mb-4"
-        >
-          <span className="gradient-text">Blog</span> 📝
-        </AnimatedText>
-        
-        <div className="flex justify-center items-center py-20">
-          <motion.div
+      <section id="blog" className="py-28 px-6 max-w-5xl mx-auto">
+        <p className="text-xs tracking-[0.22em] uppercase text-[#c8869a] mb-3 font-poppins">Writing</p>
+        <h2 className="text-4xl font-playfair font-semibold text-[#2d2420] mb-12">Blog</h2>
+        <div className="flex justify-center py-20">
+          <motion.span
             animate={{ rotate: 360 }}
-            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-            className="text-4xl"
+            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            className="text-2xl"
+            aria-label="Loading"
           >
             🌸
-          </motion.div>
+          </motion.span>
         </div>
       </section>
     );
   }
 
   return (
-    <section id="blog" className="py-5 px-6 max-w-7xl mx-auto">
+    <section id="blog" className="py-28 px-6 max-w-5xl mx-auto">
       {/* Header */}
-      <AnimatedText 
-        type="fade" 
-        delay={0.2}
-        className="text-4xl font-playfair font-semibold text-center mb-4"
+      <AnimatedText
+        type="fade"
+        delay={0.1}
+        className="text-xs tracking-[0.22em] uppercase text-[#c8869a] mb-3 font-poppins"
       >
-        <span className="gradient-text">Blog</span> 
+        Writing
       </AnimatedText>
+      <AnimatedText
+        type="slide"
+        delay={0.15}
+        className="text-4xl font-playfair font-semibold text-[#2d2420] mb-3"
+      >
+        Blog
+      </AnimatedText>
+      <AnimatedText
+        type="slide"
+        delay={0.2}
+        className="font-poppins font-light text-[#5c4a42] text-base mb-12 max-w-md leading-relaxed"
+      >
+        Thoughts on frontend engineering, accessibility, and building for the web.
+      </AnimatedText>
+      <hr className="border-[#e8e0d6] mb-16" />
    
 
       {/* Featured Posts */}
       {featuredPosts.length > 0 && (
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="mb-12"
+          transition={{ delay: 0.3 }}
+          className="mb-10"
         >
-       
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {featuredPosts.slice(0, 2).map((post, index) => (
               <motion.div
                 key={post.slug}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 + index * 0.2 }}
+                transition={{ delay: 0.4 + index * 0.1 }}
               >
                 <BlogCard post={post} variant="featured" />
               </motion.div>
@@ -101,17 +101,17 @@ export function Blogs() {
 
       {/* All Posts Grid */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2 }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        transition={{ delay: 0.5 }}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
       >
         {displayedPosts.map((post, index) => (
           <motion.div
             key={post.slug}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.4 + index * 0.1 }}
+            transition={{ delay: 0.6 + index * 0.08 }}
           >
             <BlogCard post={post} />
           </motion.div>
@@ -120,27 +120,10 @@ export function Blogs() {
 
       {/* No Results */}
       {displayedPosts.length === 0 && !isLoading && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.4 }}
-          className="text-center py-12"
-        >
-          <div className="text-6xl mb-4">🔍</div>
-          <h3 className="text-xl font-playfair font-semibold text-pink-700 mb-2">
-            No articles found
-          </h3>
-        </motion.div>
+        <p className="font-poppins text-sm text-[#5c4a42] text-center py-12">
+          No articles yet — check back soon.
+        </p>
       )}
-
-      {/* Call to Action */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.6 }}
-        className="mt-16 text-center"
-      >
-      </motion.div>
     </section>
   );
 }

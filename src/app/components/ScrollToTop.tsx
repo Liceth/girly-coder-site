@@ -29,36 +29,32 @@ export default function ScrollToTop() {
 
   return (
     <motion.div
-      className="fixed bottom-6 left-6 md:bottom-6 md:right-6 z-40"
+      className="fixed bottom-6 right-6 z-40"
       initial={{ scale: 0, opacity: 0 }}
-      animate={{ 
-        scale: isVisible ? 1 : 0, 
-        opacity: isVisible ? 1 : 0 
+      animate={{
+        scale: isVisible ? 1 : 0,
+        opacity: isVisible ? 1 : 0,
       }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
     >
       <AnimatedButton
         variant="primary"
         size="sm"
         onClick={scrollToTop}
-        className="rounded-full w-12 h-12 p-0 flex items-center justify-center shadow-kawaii hover:shadow-kawaii-hover"
+        className="rounded-full !w-11 !h-11 !p-0 flex items-center justify-center"
+        aria-label="Scroll to top"
       >
-        <span aria-label="Scroll to top" role="img">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width={24}
-            height={24}
-            fill="none"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path
-              d="M12 4l-7 8h4v8h6v-8h4l-7-8z"
-              fill="currentColor"
-            />
-          </svg>
-        </span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width={16}
+          height={16}
+          fill="none"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M12 4l-7 8h4v8h6v-8h4l-7-8z" fill="currentColor" />
+        </svg>
       </AnimatedButton>
     </motion.div>
   );

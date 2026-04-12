@@ -89,39 +89,53 @@ export default function CustomTypewriter({
 
   const currentItem = texts[currentTextIndex];
 
+  const isFullyTyped = currentCharIndex === currentItem.text.length;
+
   return (
     <div className={`inline-flex items-center gap-2 ${className}`}>
-      <span className="gradient-text text-shadow-kawaii">
+      {/* Visible animated text */}
+      <span className="gradient-text text-shadow-kawaii" aria-hidden="true">
         {displayText}
       </span>
-      
-      {/* Mostrar imagen si existe */}
+
+      {/* Screen reader: announce full phrase once typing completes */}
+      <span
+        className="sr-only"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {isFullyTyped ? currentItem.text : ""}
+      </span>
+
       {currentItem.image && (
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
-          animate={{ 
-            scale: currentCharIndex === currentItem.text.length ? 1 : 0,
-            opacity: currentCharIndex === currentItem.text.length ? 1 : 0
+          animate={{
+            scale: isFullyTyped ? 1 : 0,
+            opacity: isFullyTyped ? 1 : 0,
           }}
           transition={{ duration: 0.3, type: "spring", stiffness: 200 }}
           className="inline-block"
+          aria-hidden="true"
         >
           <Image
             src={currentItem.image}
-            alt={currentItem.imageAlt || "Icon"}
+            alt=""
             width={40}
             height={40}
             className="inline-block w-10 h-10 object-contain"
           />
         </motion.div>
       )}
-      
+
+      {/* Blinking cursor — decorative, hidden from AT */}
       {isTyping && (
         <motion.span
-          className="inline-block w-0.5 h-full ml-1"
+          className="inline-block w-0.5 h-[1em] ml-0.5"
           style={{ backgroundColor: cursorColor }}
           animate={{ opacity: [1, 0, 1] }}
           transition={{ duration: 0.8, repeat: Infinity }}
+          aria-hidden="true"
         />
       )}
     </div>

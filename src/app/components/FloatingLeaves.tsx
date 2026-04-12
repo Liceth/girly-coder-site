@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 interface Leaf {
@@ -15,6 +15,7 @@ interface Leaf {
 }
 
 export default function FloatingLeaves() {
+  const prefersReducedMotion = useReducedMotion();
   const [leaves, setLeaves] = useState<Leaf[]>([]);
   const { scrollY } = useScroll();
   
@@ -48,9 +49,10 @@ export default function FloatingLeaves() {
     };
 
     generateLeaves();
-  }, []);
+  }, [prefersReducedMotion]);
 
   useEffect(() => {
+    if (prefersReducedMotion) return;
     const handleMouseMove = (event: MouseEvent) => {
       const { clientX, clientY } = event;
       const centerX = window.innerWidth / 2;
@@ -62,10 +64,12 @@ export default function FloatingLeaves() {
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, prefersReducedMotion]);
+
+  if (prefersReducedMotion) return null;
 
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
       {leaves.map((leaf) => (
         <motion.div
           key={leaf.id}

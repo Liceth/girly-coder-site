@@ -1,82 +1,76 @@
-"use client";
-import React from "react";
+import React, { Suspense } from "react";
 import { About } from "./components/about/about";
 import { Contact } from "./components/contact/contact";
 import { Hero } from "./components/hero/hero";
 import { Skills } from "./components/skills/skills";
 import { Work } from "./components/work/work";
 import AnimatedSection from "./components/AnimatedSection";
-import FloatingLeaves from "./components/FloatingLeaves";
-import SakuraLeaves from "./components/SakuraLeaves";
 import SmoothNav from "./components/SmoothNav";
 import ScrollToTop from "./components/ScrollToTop";
 import { HamburgerMenu } from "./components/HamburgerMenu";
 import { Blogs } from "./components/work/blogs";
+// Client wrapper handles ssr:false dynamic imports for decorative components
+import DecorativeBackground from "./components/DecorativeBackground";
 
 export default function Home() {
   return (
     <main
-      className="bg-gradient-to-b from-pink-100 via-rose-100 to-white text-rose-900 font-sans selection:bg-rose-200 relative min-h-screen overflow-hidden"
+      id="main-content"
+      className="bg-[#faf8f5] text-[#2d2420] font-sans selection:bg-rose-100 relative min-h-screen overflow-hidden"
       style={{
-        backgroundImage: "url('/sakura-petals.svg.png'), linear-gradient(to bottom, #ffe4e6, #fff1f2, #fff)",
+        backgroundImage:
+          "url('/sakura-petals.svg.png'), linear-gradient(to bottom, #f7ede8, #faf5f2, #faf8f5)",
         backgroundRepeat: "repeat-x",
         backgroundPosition: "top",
         backgroundSize: "auto",
-        zIndex: 0,
+        backgroundAttachment: "local",
       }}
     >
-      {/* Smooth navigation */}
+      {/* Navigation */}
       <SmoothNav />
-      
-      {/* Mobile hamburger menu */}
       <HamburgerMenu />
-      
-      {/* Scroll to top button - visible on all screen sizes */}
       <ScrollToTop />
-      
-      {/* Floating leaves with parallax */}
-      <FloatingLeaves />
-      
-      {/* Realistic sakura petals */}
-      <SakuraLeaves />
-      
+
+      {/* Decorative — deferred client bundle, aria-hidden inside each component */}
+      <Suspense fallback={null}>
+        <DecorativeBackground />
+      </Suspense>
+
       <AnimatedSection delay={0.1}>
         <div id="hero">
           <Hero />
         </div>
       </AnimatedSection>
 
-      <AnimatedSection delay={0.2}>
+      <AnimatedSection delay={0.15}>
         <div id="about">
           <About />
         </div>
       </AnimatedSection>
 
-      <AnimatedSection delay={0.2}>
+      <AnimatedSection delay={0.1}>
         <div id="blogs">
           <Blogs />
         </div>
       </AnimatedSection>
 
-      <AnimatedSection delay={0.3}>
+      <AnimatedSection delay={0.1}>
         <div id="work">
           <Work />
         </div>
       </AnimatedSection>
 
-      <AnimatedSection delay={0.4}>
+      <AnimatedSection delay={0.1}>
         <div id="skills">
           <Skills />
         </div>
       </AnimatedSection>
 
-      <AnimatedSection delay={0.5}>
+      <AnimatedSection delay={0.1}>
         <div id="contact">
           <Contact />
         </div>
       </AnimatedSection>
-
-      <div className="pointer-events-none absolute bottom-0 left-0 w-full h-32 bg-[url('/sakura-petals.svg.png')] bg-repeat-x opacity-20 animate-float-reverse" />
     </main>
   );
 }

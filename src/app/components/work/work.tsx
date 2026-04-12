@@ -1,211 +1,174 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { staggerContainer, fadeInUp } from "../../utils/animations";
-import AnimatedText from "../AnimatedText";
-import KawaiiCard from "../KawaiiCard";
+import AnimatedSection from "../AnimatedSection";
 
+// ── data ──────────────────────────────────────────────────────────────────────
+const experience = [
+  {
+    company:  "Kinesso",
+    position: "UI Engineer",
+    location: "Bogotá / Remote",
+    period:   "Jul 2024 — Present",
+    achievements: [
+      "Architecting and deploying an AI-powered trend detection SaaS platform with React, Next.js, and TypeScript",
+      "Implemented server-side rendering (SSR) and dynamic API integrations, reducing report generation time",
+      "Built proof-of-concept data visualisation dashboards with AG Grid and statistical computation pipelines",
+      "Improved unit and integration test coverage by 80% with Jest and Cypress, ensuring release confidence",
+      "Collaborated with cross-functional teams (designers, backend, data engineers) to deliver scalable features",
+    ],
+    tech: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Cypress", "Jest", "AG Grid", "SSR", "WebSockets", "Dagster"],
+  },
+  {
+    company:  "Huge Inc — Google Projects",
+    position: "UI Engineer",
+    location: "Bogotá / Remote",
+    period:   "Apr 2021 — Jul 2024",
+    achievements: [
+      "Developed and maintained scalable CMS and analytics platforms for Google marketing teams",
+      "Created reusable web components and integrated third-party APIs to accelerate feature delivery",
+      "Delivered WCAG-compliant, internationalised interfaces across multiple markets and languages",
+      "Monitored performance with GA4 and optimised UX for large-scale user traffic",
+      "Reviewed code and mentored junior engineers, fostering best practices in accessibility and testing",
+    ],
+    tech: ["React", "TypeScript", "CMS", "REST APIs", "WCAG", "GA4", "Localisation", "Jest"],
+  },
+  {
+    company:  "Globant",
+    position: "Web UI Developer",
+    location: "Bogotá",
+    period:   "Apr 2019 — Mar 2021",
+    achievements: [
+      "Implemented modern user interfaces with React and JavaScript for enterprise clients",
+      "Collaborated with backend teams to consume RESTful APIs and ensure seamless integrations",
+      "Optimised app performance, accessibility, and cross-browser compatibility",
+    ],
+    tech: ["React", "JavaScript", "HTML5", "CSS3", "REST APIs"],
+  },
+  {
+    company:  "Stefanini",
+    position: "Frontend Developer",
+    location: "Barranquilla",
+    period:   "Oct 2018 — Dec 2018",
+    achievements: [
+      "Developed a responsive admin dashboard using React and Redux",
+      "Integrated APIs and implemented dynamic state management to enhance UX",
+    ],
+    tech: ["React", "Redux", "Admin Dashboard", "APIs"],
+  },
+  {
+    company:  "CrowdSwap",
+    position: "Frontend Developer",
+    location: "Bogotá",
+    period:   "Jul 2018 — Oct 2018",
+    achievements: [
+      "Built MVP mobile app using React Native and GraphQL for real-time trading features",
+      "Implemented Swift native modules for hybrid mobile functionality",
+    ],
+    tech: ["React Native", "GraphQL", "Swift"],
+  },
+  {
+    company:  "Nativapps",
+    position: "Frontend Developer",
+    location: "Barranquilla",
+    period:   "May 2017 — Jul 2018",
+    achievements: [
+      "Maintained and enhanced a full-stack CRM application with PHP, JavaScript, and AWS",
+      "Improved workflows, fixed bugs, and contributed to cloud deployments",
+    ],
+    tech: ["PHP", "JavaScript", "AWS", "CRM"],
+  },
+];
+
+// ── component ─────────────────────────────────────────────────────────────────
 export function Work() {
-  const experience = [
-    {
-      company: "Kinesso",
-      position: "UI Engineer",
-      location: "Bogotá / Remote",
-      period: "Jul 2024 - Present",
-      icon: "🚀",
-      achievements: [
-        "Architecting and deploying AI-powered trend detection SaaS platform with React, Next.js, and TypeScript",
-        "Implemented server-side rendering (SSR) and dynamic API integrations, reducing report generation time ",
-        "Built proof-of-concept data visualization dashboards with AG Grid and statistical computation pipelines",
-        "Improved unit and integration test coverage by 80% with Jest and Cypress, ensuring release confidence",
-        "Collaborated with cross-functional teams (designers, backend, and data engineers) to deliver scalable product features"
-      ],
-      tech: [
-        "React",
-        "Next.js",
-        "TypeScript",
-        "Tailwind CSS",
-        "Cypress",
-        "Jest",
-        "AG Grid",
-        "SSR",
-        "WebSockets",
-        "Dagster"
-      ]
-    },
-    {
-      company: "Huge Inc (Google Projects)",
-      position: "UI Engineer",
-      location: "Bogotá / Remote",
-      period: "Apr 2021 - Jul 2024",
-      icon: "🌟",
-      achievements: [
-        "Developed and maintained scalable CMS and analytics platforms for Google marketing teams",
-        "Created reusable web components and integrated third-party APIs to accelerate feature delivery",
-        "Delivered WCAG-compliant, internationalized interfaces across multiple markets and languages",
-        "Monitored performance with GA4 and optimized UX for large-scale user traffic",
-        "Reviewed code and mentored junior engineers, fostering best practices in accessibility and testing"
-      ],
-      tech: [
-        "React",
-        "TypeScript",
-        "CMS",
-        "APIs",
-        "WCAG",
-        "GA4",
-        "Localization",
-        "Jest"
-      ]
-    },
-    {
-      company: "Globant",
-      position: "Web UI Developer",
-      location: "Bogotá",
-      period: "Apr 2019 - Mar 2021",
-      icon: "💼",
-      achievements: [
-        "Implemented modern user interfaces with React and JavaScript for enterprise clients",
-        "Collaborated with backend teams to consume RESTful APIs and ensure seamless integrations",
-        "Optimized app performance, accessibility, and cross-browser compatibility"
-      ],
-      tech: ["React", "JavaScript", "HTML", "CSS", "REST APIs"]
-    },
-    {
-      company: "Stefanini",
-      position: "Frontend Developer",
-      location: "Barranquilla",
-      period: "Oct 2018 - Dec 2018",
-      icon: "⚡",
-      achievements: [
-        "Developed a responsive admin dashboard using React and Redux",
-        "Integrated APIs and implemented dynamic state management to enhance UX"
-      ],
-      tech: ["React", "Redux", "Admin Dashboard", "APIs"]
-    },
-    {
-      company: "CrowdSwap",
-      position: "Frontend Developer",
-      location: "Bogotá",
-      period: "Jul 2018 - Oct 2018",
-      icon: "📱",
-      achievements: [
-        "Built MVP mobile app using React Native and GraphQL for real-time trading features",
-        "Implemented Swift native modules for hybrid mobile functionality"
-      ],
-      tech: ["React Native", "GraphQL", "Swift", "Mobile Apps"]
-    },
-    {
-      company: "Nativapps",
-      position: "Frontend Developer",
-      location: "Barranquilla",
-      period: "May 2017 - Jul 2018",
-      icon: "🛠️",
-      achievements: [
-        "Maintained and enhanced a full-stack CRM application with PHP, JavaScript, and AWS",
-        "Improved workflows, fixed bugs, and contributed to cloud deployments"
-      ],
-      tech: ["PHP", "JavaScript", "AWS", "CRM", "Full-stack"]
-    }
-  ];
-  
   return (
-    <section id="work" className="py-5 px-6 max-w-7xl mx-auto">
-      {/* Work Experience */}
-      <AnimatedText 
-        type="fade" 
-        delay={0.6}
-        className="text-4xl font-playfair font-semibold text-center mb-4"
-      >
-        <span className="gradient-text">Work Experience</span> 🌟
-      </AnimatedText>
-      
-      <AnimatedText 
-        type="slide" 
-        delay={0.8}
-        className="text-lg font-poppins text-rose-700 text-center mb-12 max-w-2xl mx-auto"
-      >
-        My journey in frontend development and creating magical digital experiences
-      </AnimatedText>
+    <section
+      id="work"
+      aria-label="Work experience"
+      className="py-28 px-6"
+    >
+      <div className="max-w-3xl mx-auto">
 
-      <motion.div 
-        variants={staggerContainer}
-        initial="initial"
-        animate="animate"
-        className="space-y-6"
-      >
-        {/* Define experience data*/}
-        {experience.map((job, index) => (
-          <motion.div
-            key={`${job.company}-${job.period}`}
-            variants={fadeInUp}
-            className="relative"
-          >
-            {/* Timeline */}
-            {index < experience.length - 1 && (
-              <div className="absolute left-8 top-16 w-0.5 h-20 bg-gradient-to-b from-pink-300 to-purple-300 z-0" />
-            )}
-            
-            <KawaiiCard 
-              variant="default"
-              className="relative z-10"
-            >
-              <div className="flex items-start gap-6 sm:flex-row flex-col">
-                {/* Icono de la empresa */}
-                <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-pink-100 to-purple-100 rounded-full flex items-center justify-center text-2xl shadow-kawaii">
-                  {job.icon}
-                </div>
-                
-                {/* Contenido */}
-                <div className="flex-1">
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3">
+        {/* Section header */}
+        <AnimatedSection delay={0.1}>
+          <p className="text-xs tracking-[0.22em] uppercase text-[#c8869a] mb-3 font-poppins">
+            Experience
+          </p>
+          <h2 className="text-4xl font-playfair font-semibold text-[#2d2420] mb-12">
+            Work History
+          </h2>
+          <hr className="border-[#e8e0d6] mb-16" />
+        </AnimatedSection>
+
+        {/* Timeline */}
+        <div className="relative">
+          {/* Vertical rail */}
+          <div
+            className="absolute left-0 top-2 bottom-2 w-px bg-[#e8e0d6]"
+            aria-hidden="true"
+          />
+
+          <ol className="space-y-16 list-none">
+            {experience.map((job, i) => (
+              <AnimatedSection key={`${job.company}-${i}`} delay={0.1 + i * 0.06}>
+                <li className="pl-8 relative">
+                  {/* Timeline dot */}
+                  <span
+                    className="absolute left-[-4px] top-1.5 w-2 h-2 rounded-full bg-[#c8869a] ring-2 ring-[#fdfbf8]"
+                    aria-hidden="true"
+                  />
+
+                  {/* Header row */}
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-3">
                     <div>
-                      <h3 className="text-xl font-playfair font-bold text-pink-700 mb-1">
+                      <h3 className="font-playfair text-xl font-semibold text-[#2d2420] leading-snug">
                         {job.position}
                       </h3>
-                      <p className="text-lg font-poppins font-semibold text-rose-800">
+                      <p className="font-poppins text-sm font-medium text-[#8f5a6e] mt-0.5">
                         {job.company}
                       </p>
                     </div>
-                    <div className="text-right mt-2 sm:mt-0">
-                      <p className="text-sm font-poppins text-rose-600">
-                        {job.location}
-                      </p>
-                      <p className="text-sm font-poppins text-rose-500">
+                    <div className="sm:text-right shrink-0">
+                      <p className="font-poppins text-xs text-[#c4b5a2] tracking-wide">
                         {job.period}
+                      </p>
+                      <p className="font-poppins text-xs text-[#c4b5a2] mt-0.5">
+                        {job.location}
                       </p>
                     </div>
                   </div>
-                  
-                  {/* Logros */}
-                  <ul className="space-y-2 mb-4">
-                    {job.achievements.map((achievement: string) => (
-                      <li 
-                        key={achievement}
-                        className="text-rose-900 font-poppins text-sm leading-relaxed flex items-start gap-2"
+
+                  {/* Achievements */}
+                  <ul className="space-y-2 mb-5">
+                    {job.achievements.map((a) => (
+                      <li
+                        key={a}
+                        className="font-poppins font-light text-sm text-[#5c4a42] leading-relaxed flex gap-3"
                       >
-                        <span className="text-pink-400 mt-1">•</span>
-                        {achievement}
+                        <span className="text-[#c8869a] shrink-0 mt-0.5 text-[10px]">◆</span>
+                        {a}
                       </li>
                     ))}
                   </ul>
-                  
-                  {/* Tecnologías */}
-                  <div className="flex flex-wrap gap-2">
-                    {job.tech.map((tech: string, techIndex: number) => (
-                      <span 
-                        key={techIndex}
-                        className="px-2 py-1 bg-gradient-to-r from-pink-50 to-purple-50 text-pink-600 text-xs font-poppins font-medium rounded-full border border-pink-200"
+
+                  {/* Tech tags */}
+                  <div className="flex flex-wrap gap-1.5">
+                    {job.tech.map((t) => (
+                      <span
+                        key={t}
+                        className="px-2.5 py-1 rounded-full text-[10px] font-poppins font-medium tracking-wide bg-[#f7eff2] text-[#8f5a6e] border border-[#e8d0d8]"
                       >
-                        {tech}
+                        {t}
                       </span>
                     ))}
                   </div>
-                </div>
-              </div>
-            </KawaiiCard>
-          </motion.div>
-        ))}
-      </motion.div>
+                </li>
+              </AnimatedSection>
+            ))}
+          </ol>
+        </div>
+
+      </div>
     </section>
   );
 }

@@ -10,6 +10,7 @@ interface AnimatedButtonProps {
   variant?: "primary" | "secondary" | "outline";
   size?: "sm" | "md" | "lg";
   disabled?: boolean;
+  "aria-label"?: string;
 }
 
 const AnimatedButton = ({
@@ -19,19 +20,20 @@ const AnimatedButton = ({
   variant = "primary",
   size = "md",
   disabled = false,
+  "aria-label": ariaLabel,
 }: AnimatedButtonProps) => {
   const baseClasses = "inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2";
   
   const variants = {
-    primary: "bg-pink-500 text-white hover:bg-pink-600 focus:ring-pink-500 shadow-lg hover:shadow-xl",
-    secondary: "bg-purple-500 text-white hover:bg-purple-600 focus:ring-purple-500 shadow-lg hover:shadow-xl",
-    outline: "border-2 border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white focus:ring-pink-500",
+    primary: "bg-[#c8869a] text-white hover:bg-[#b3738a] focus:ring-[#c8869a] shadow-kawaii hover:shadow-kawaii-hover",
+    secondary: "bg-[#c4b5a2] text-white hover:bg-[#b3a08e] focus:ring-[#c4b5a2] shadow-kawaii hover:shadow-kawaii-hover",
+    outline: "border border-[#c8869a] text-[#8f5a6e] hover:bg-[#f7eff2] hover:border-[#b3738a] focus:ring-[#c8869a]",
   };
 
   const sizes = {
-    sm: "px-4 py-2 text-sm",
-    md: "px-6 py-3 text-base",
-    lg: "px-8 py-4 text-lg",
+    sm: "px-4 py-2 text-xs tracking-wide",
+    md: "px-5 py-2.5 text-sm tracking-wide",
+    lg: "px-7 py-3 text-sm tracking-[0.06em]",
   };
 
   const buttonClasses = `${baseClasses} ${variants[variant]} ${sizes[size]} ${className}`;
@@ -41,6 +43,7 @@ const AnimatedButton = ({
       className={buttonClasses}
       onClick={onClick}
       disabled={disabled}
+      aria-label={ariaLabel}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       transition={{
