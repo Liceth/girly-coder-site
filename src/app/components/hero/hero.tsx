@@ -7,78 +7,81 @@ import CustomTypewriter from "../CustomTypewriter";
 
 export function Hero() {
   const typewriterTexts = [
-    {
-      text: "Hi! I'm Liceth 🌸 ",
-    },
-    {
-      text: "Frontend Developer",
-      image: "/pckiwi.png",
-      imageAlt: "Pckiwi Developer"
-    },
-    {
-      text: "UI Engineer ✨",
-    },
+    { text: "Hi, I'm Liceth" },
+    { text: "Frontend Engineer" },
+    { text: "UI Engineer " },
   ];
 
   return (
-    <section id="hero" className="flex flex-col justify-center items-center text-center px-6 py-5 min-h-screen relative overflow-hidden">
-      {/* Gradient background and particles */}
-      <div className="absolute inset-0 gradient-primary particles opacity-80" />
-      
-      <div className="relative z-10">
-        <div className="text-5xl sm:text-6xl font-playfair font-bold mb-4 min-h-[4rem] flex items-center justify-center">
-          <CustomTypewriter 
+    <section
+      id="hero"
+      aria-label="Introduction"
+      className="flex flex-col justify-center items-center text-center px-6 py-5 min-h-screen relative overflow-hidden"
+    >
+      {/* Subtle gradient wash */}
+      <div className="absolute inset-0 gradient-primary particles opacity-70" aria-hidden="true" />
+
+      <div className="relative z-10 max-w-2xl mx-auto">
+        {/* Eyebrow */}
+        <p
+          className="font-poppins text-xs tracking-[0.2em] uppercase text-[#c8869a] mb-6 opacity-0 animate-[fadeIn_0.6s_0.3s_forwards]"
+          style={{ animationFillMode: "forwards" }}
+          aria-hidden="true"
+        >
+          Portfolio
+        </p>
+
+        {/* Typewriter headline */}
+        <div className="text-5xl sm:text-6xl font-playfair font-bold mb-6 min-h-[4.5rem] flex items-center justify-center">
+          <CustomTypewriter
             texts={typewriterTexts}
-            speed={120}
-            delay={500}
-            pauseTime={2500}
-            cursorColor="#ec4899"
+            speed={110}
+            delay={400}
+            pauseTime={2800}
+            cursorColor="#c8869a"
             loop={true}
           />
         </div>
-        
-        <AnimatedText 
-          type="slide" 
-          delay={0.4}
-          className="text-xl font-poppins text-rose-800 max-w-xl mb-8 leading-relaxed"
+
+        {/* Subhead */}
+        <AnimatedText
+          type="slide"
+          delay={0.45}
+          className="text-lg font-poppins font-light text-[#5c4a42] max-w-lg mx-auto mb-10 leading-relaxed"
         >
-          Frontend developer passionate about creating beautiful, accessible, and magical experiences ✨ with React, TypeScript, and love for details.
+          Frontend developer crafting beautiful, accessible experiences with React,
+          TypeScript, and a deep love for the details.
         </AnimatedText>
-        
-        <AnimatedSection delay={0.6}>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <AnimatedButton 
-              variant="primary" 
+
+        {/* CTA row */}
+        <AnimatedSection delay={0.65}>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+            <AnimatedButton
+              variant="primary"
               size="lg"
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() =>
+                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+              }
             >
-              Let&apos;s chat! 💕
+              Let&apos;s chat
             </AnimatedButton>
-            
-            <AnimatedButton 
-              variant="outline" 
+
+            <AnimatedButton
+              variant="outline"
               size="lg"
-              onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() =>
+                document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })
+              }
             >
-              See my work 🎨
+              See my work
             </AnimatedButton>
           </div>
         </AnimatedSection>
-        
-        {/* Decorative elements */}
-        <div className="absolute top-10 left-10 text-2xl animate-float opacity-60">
-          🌸
-        </div>
-        <div className="absolute top-20 right-20 text-3xl animate-float-reverse opacity-60">
-          ✨
-        </div>
-        <div className="absolute bottom-20 left-20 text-2xl animate-sparkle opacity-60">
-          💖
-        </div>
-        <div className="absolute bottom-10 right-10 text-3xl animate-float opacity-60">
-          🎀
-        </div>
       </div>
+
+      {/* Decorative sakura — two petals, quiet */}
+      <div className="absolute top-16 left-12 text-xl animate-float opacity-40" aria-hidden="true">🌸</div>
+      <div className="absolute bottom-16 right-14 text-xl animate-float-reverse opacity-40" aria-hidden="true">🌸</div>
     </section>
   );
 }

@@ -2,218 +2,187 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import Image from "next/image";
 import AnimatedSection from "../AnimatedSection";
-import AnimatedText from "../AnimatedText";
-import KawaiiCard from "../KawaiiCard";
 
+// ── data ──────────────────────────────────────────────────────────────────────
 const facts = [
-  { icon: "🇨🇴", label: "Based in Colombia", detail: "Remote-friendly" },
-  { icon: "⏱️", label: "6+ Years", detail: "Frontend Experience" },
-  { icon: "⚛️", label: "React Expert", detail: "TypeScript & Modern Tools" },
-  { icon: "🎨", label: "Design Systems", detail: "Pixel-perfect UI" },
-  { icon: "♿", label: "Accessibility", detail: "Inclusive Design" },
-  { icon: "🚀", label: "Performance", detail: "Scalable Solutions" }
+  { label: "Based in",   value: "Colombia",          note: "Remote-friendly"          },
+  { label: "Experience", value: "6+ years",           note: "Frontend"                  },
+  { label: "Specialty",  value: "React · TypeScript", note: "Next.js & Modern Tooling"  },
+  { label: "Focus",      value: "Design Systems",     note: "Pixel-perfect UI"          },
+  { label: "Advocate",   value: "Accessibility",      note: "Inclusive Design"          },
+  { label: "Mindset",    value: "Performance",        note: "Scalable Solutions"         },
 ];
 
 const hobbies = [
-  { emoji: "🌸", name: "Kawaii Aesthetics", color: "text-pink-500" },
-  { emoji: "📺", name: "K-Dramas", color: "text-purple-500" },
-  { emoji: "📝", name: "Journaling", color: "text-blue-500" },
-  { emoji: "🐕", name: "Husky Walks", color: "text-gray-600" },
-  { emoji: "🌍", name: "Languages", color: "text-green-500" },
-  { emoji: "🎨", name: "Creative Projects", color: "text-orange-500" }
+  "Kawaii Aesthetics",
+  "K-Dramas",
+  "Journaling",
+  "Husky Walks",
+  "Languages",
+  "Creative Projects",
 ];
 
+// ── component ─────────────────────────────────────────────────────────────────
 export function About() {
   const [activeHobby, setActiveHobby] = useState<number | null>(null);
 
   return (
-    <section id="about" className="py-20 px-6 bg-gradient-to-br from-pink-50 via-rose-50 to-purple-50 relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-10 text-6xl animate-float">🌸</div>
-        <div className="absolute top-40 right-20 text-4xl animate-float-reverse">✨</div>
-        <div className="absolute bottom-20 left-20 text-5xl animate-sparkle">💖</div>
-        <div className="absolute bottom-40 right-10 text-4xl animate-float">🎀</div>
-      </div>
+    <section
+      id="about"
+      aria-label="About me"
+      className="py-28 px-6 bg-[#f7ede8]/40 relative overflow-hidden"
+    >
+      <div className="max-w-5xl mx-auto">
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
-        <AnimatedText 
-          type="fade" 
-          delay={0.2}
-          className="text-5xl md:text-6xl font-playfair font-bold text-center mb-4"
-        >
-          <span className="gradient-text">About me</span>
-        </AnimatedText>
-      
+        {/* Section label */}
+        <AnimatedSection delay={0.1}>
+          <p className="text-xs tracking-[0.22em] uppercase text-[#c8869a] text-center mb-3 font-poppins">
+            About
+          </p>
+          <h2 className="text-4xl md:text-5xl font-playfair font-semibold text-center text-[#2d2420] mb-3">
+            Liceth Ovalles
+          </h2>
+          <p className="text-center font-poppins text-[#5c4a42] text-base mb-12 max-w-md mx-auto leading-relaxed">
+            Senior Frontend Engineer · Colombia
+          </p>
+          <hr className="border-[#e8e0d6] mb-16" />
+        </AnimatedSection>
 
-        {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-16">
-          
-          {/* Left Column - Story */}
-          <div className="space-y-8">
-            <AnimatedSection delay={0.4}>
-              <KawaiiCard variant="glass" className="text-left hover:shadow-kawaii-hover transition-all duration-300">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-3xl">🎓</span>
-                  <h3 className="text-2xl font-playfair font-semibold text-pink-700">
-                    My Journey
-                  </h3>
-                </div>
-                <p className="text-lg font-poppins text-rose-900 leading-relaxed mb-4">
-                  Hello! I&apos;m <span className="font-semibold text-pink-700">Liceth</span>, a frontend engineer based in Colombia. 
-                  Over the past <span className="font-semibold text-pink-700">6+ years</span>, I&apos;ve built scalable, 
-                  user-centric web applications with React, TypeScript, and modern toolchains.
-                </p>
-                <p className="text-lg font-poppins text-rose-900 leading-relaxed">
-                  I specialize in <span className="font-semibold text-pink-700">design systems</span>, 
-                  <span className="font-semibold text-pink-700"> accessible UI</span>, and data-rich SaaS interfaces — 
-                  always aiming for pixel-perfect detail, performance, and inclusivity.
-                </p>
-              </KawaiiCard>
+        {/* Main grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+
+          {/* Left — story + hobbies */}
+          <div className="space-y-10">
+            <AnimatedSection delay={0.2}>
+              <h3 className="font-playfair text-xl text-[#2d2420] mb-4">
+                My Journey
+              </h3>
+              <p className="font-poppins font-light text-[#5c4a42] leading-relaxed text-base mb-4">
+                I&apos;m a frontend engineer with{" "}
+                <span className="text-[#8f5a6e] font-medium">6+ years</span> of experience
+                building scalable, user-centric web applications with React,
+                TypeScript, and modern toolchains.
+              </p>
+              <p className="font-poppins font-light text-[#5c4a42] leading-relaxed text-base">
+                I specialise in{" "}
+                <span className="text-[#8f5a6e] font-medium">design systems</span>,{" "}
+                <span className="text-[#8f5a6e] font-medium">accessible UI</span>, and
+                data-rich SaaS interfaces — always aiming for pixel-perfect detail,
+                performance, and inclusivity.
+              </p>
             </AnimatedSection>
 
-            <AnimatedSection delay={0.5}>
-              <KawaiiCard variant="glass" className="text-left hover:shadow-kawaii-hover transition-all duration-300">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-3xl">🎀</span>
-                  <h3 className="text-2xl font-playfair font-semibold text-pink-700">
-                    Beyond Code
-                  </h3>
-                </div>
-                <p className="text-lg font-poppins text-rose-900 leading-relaxed mb-6">
-                  When I step away from the screen, I&apos;m exploring kawaii aesthetics, binging k-dramas, 
-                  journaling my thoughts, going for walks with my husky, and picking up new languages.
-                </p>
-                
-                {/* Interactive Hobbies */}
-                <div className="grid grid-cols-3 gap-3">
-                  {hobbies.map((hobby, index) => (
-                    <motion.div
-                      key={hobby.name}
-                      className={`p-3 rounded-xl bg-white/50 border border-pink-200 cursor-pointer transition-all duration-300 ${
-                        activeHobby === index ? 'bg-pink-100 border-pink-300 shadow-md' : 'hover:bg-white/70'
-                      }`}
-                      onHoverStart={() => setActiveHobby(index)}
-                      onHoverEnd={() => setActiveHobby(null)}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <div className="text-center">
-                        <div className="text-2xl mb-1">{hobby.emoji}</div>
-                        <div className={`text-xs font-poppins font-medium ${hobby.color}`}>
-                          {hobby.name}
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </KawaiiCard>
-            </AnimatedSection>
-          </div>
+            <AnimatedSection delay={0.3}>
+              <h3 className="font-playfair text-xl text-[#2d2420] mb-4">
+                Beyond Code
+              </h3>
+              <p className="font-poppins font-light text-[#5c4a42] leading-relaxed text-base mb-6">
+                When I step away from the screen, I explore kawaii aesthetics,
+                binge k-dramas, journal my thoughts, walk my husky, and pick up
+                new languages.
+              </p>
 
-          {/* Right Column - Image & Stats */}
-          <div className="space-y-8">
-            <AnimatedSection delay={0.6}>
-              <div className="flex justify-center">
-                <motion.div
-                  className="relative"
-                  whileHover={{ 
-                    scale: 1.05,
-                    rotate: 2,
-                    transition: { duration: 0.3 }
-                  }}
-                >
-                  <div className="relative bg-gradient-to-br from-pink-100 to-purple-100 rounded-3xl p-8 shadow-kawaii">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img 
-                      src="/KawaiiCoder.png" 
-                      alt="Kawaii Coder Illustration" 
-                      className="w-[280px] md:w-[320px] drop-shadow-xl relative z-10" 
-                    />
-                    
-                    {/* Floating elements */}
-                    <motion.div 
-                      className="absolute -top-2 -left-2 text-2xl"
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    >
-                      🌸
-                    </motion.div>
-                    <motion.div 
-                      className="absolute -top-2 -right-2 text-3xl"
-                      animate={{ y: [-10, 10, -10] }}
-                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                      ✨
-                    </motion.div>
-                    <motion.div 
-                      className="absolute -bottom-2 -left-2 text-2xl"
-                      animate={{ scale: [1, 1.2, 1] }}
-                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                      💖
-                    </motion.div>
-                    <motion.div 
-                      className="absolute -bottom-2 -right-2 text-3xl"
-                      animate={{ rotate: [-10, 10, -10] }}
-                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                      🎀
-                    </motion.div>
-                  </div>
-                </motion.div>
+              {/* Hobby tags */}
+              <div className="flex flex-wrap gap-2">
+                {hobbies.map((hobby, i) => (
+                  <motion.button
+                    key={hobby}
+                    onHoverStart={() => setActiveHobby(i)}
+                    onHoverEnd={() => setActiveHobby(null)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-poppins font-medium tracking-wide border transition-colors duration-200 ${
+                      activeHobby === i
+                        ? "bg-[#f7eff2] border-[#c8869a] text-[#8f5a6e]"
+                        : "bg-[#fdfbf8] border-[#e8e0d6] text-[#5c4a42]"
+                    }`}
+                  >
+                    {hobby}
+                  </motion.button>
+                ))}
               </div>
             </AnimatedSection>
 
-            {/* Quick Facts */}
-            <AnimatedSection delay={0.7}>
-              <KawaiiCard variant="glass" className="text-center">
-                <h3 className="text-xl font-playfair font-semibold text-pink-700 mb-6">
-                  ✨ Quick Facts
-                </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {facts.map((fact, index) => (
-                    <motion.div
-                      key={fact.label}
-                      className="p-4 bg-white/50 rounded-xl border border-pink-200 hover:bg-white/70 transition-all duration-300"
-                      whileHover={{ scale: 1.05 }}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.8 + index * 0.1 }}
-                    >
-                      <div className="text-2xl mb-2">{fact.icon}</div>
-                      <div className="font-poppins font-semibold text-pink-700 text-sm">
-                        {fact.label}
-                      </div>
-                      <div className="font-poppins text-rose-600 text-xs">
-                        {fact.detail}
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </KawaiiCard>
+            {/* CTA strip */}
+            <AnimatedSection delay={0.4}>
+              <div className="border border-[#e8e0d6] rounded-xl px-6 py-5 bg-[#fdfbf8]">
+                <p className="font-poppins font-light text-[#5c4a42] text-sm leading-relaxed">
+                  Ready to build beautiful, accessible, and performant
+                  experiences together?{" "}
+                  <button
+                    onClick={() =>
+                      document
+                        .getElementById("contact")
+                        ?.scrollIntoView({ behavior: "smooth" })
+                    }
+                    className="text-[#8f5a6e] underline underline-offset-2 hover:text-[#c8869a] focus:outline-none focus:ring-1 focus:ring-[#c8869a] rounded"
+                  >
+                    Let&apos;s talk.
+                  </button>
+                </p>
+              </div>
             </AnimatedSection>
           </div>
-        </div>
 
-        {/* Call to Action */}
-        <AnimatedSection delay={0.9}>
-          <div className="text-center">
-            <motion.div
-              className="inline-block p-6 bg-gradient-to-r from-pink-100 to-purple-100 rounded-2xl border border-pink-200 shadow-kawaii"
-              whileHover={{ scale: 1.02 }}
-            >
-              <p className="text-lg font-poppins text-rose-700 mb-2">
-                💫 Ready to create something magical together?
-              </p>
-              <p className="text-sm font-poppins text-rose-600">
-                Let&apos;s build beautiful, accessible, and performant web experiences! ✨
-              </p>
-            </motion.div>
+          {/* Right — illustration + facts */}
+          <div className="space-y-10">
+
+            {/* Illustration */}
+            <AnimatedSection delay={0.25}>
+              <div className="flex justify-center">
+                <div className="relative bg-[#f7ede8] rounded-2xl p-8 border border-[#e8d0c8]">
+                  <Image
+                    src="/KawaiiCoder.png"
+                    alt="Liceth Ovalles — illustrated avatar"
+                    width={280}
+                    height={280}
+                    className="w-[240px] md:w-[280px] drop-shadow-md object-contain"
+                    priority
+                  />
+                  {/* single small petal — stays girly, stays minimal */}
+                  <span
+                    className="absolute -top-3 -right-3 text-lg animate-float opacity-70"
+                    aria-hidden="true"
+                  >
+                    🌸
+                  </span>
+                </div>
+              </div>
+            </AnimatedSection>
+
+            {/* Facts table */}
+            <AnimatedSection delay={0.35}>
+              <div className="rounded-xl border border-[#e8e0d6] overflow-hidden bg-[#fdfbf8]">
+                <div className="px-5 py-3 border-b border-[#e8e0d6] bg-[#f7ede8]/50">
+                  <p className="text-[10px] uppercase tracking-[0.18em] font-poppins text-[#c8869a]">
+                    Quick Facts
+                  </p>
+                </div>
+                <dl className="divide-y divide-[#e8e0d6]">
+                  {facts.map((fact) => (
+                    <div
+                      key={fact.label}
+                      className="flex items-baseline justify-between px-5 py-3.5 hover:bg-[#faf5f2] transition-colors duration-150"
+                    >
+                      <dt className="text-xs font-poppins text-[#c4b5a2] uppercase tracking-wide w-28 shrink-0">
+                        {fact.label}
+                      </dt>
+                      <dd className="text-right">
+                        <span className="block text-sm font-poppins font-medium text-[#2d2420]">
+                          {fact.value}
+                        </span>
+                        <span className="block text-xs font-poppins text-[#5c4a42]">
+                          {fact.note}
+                        </span>
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </AnimatedSection>
+
           </div>
-        </AnimatedSection>
+        </div>
       </div>
     </section>
   );
